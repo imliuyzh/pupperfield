@@ -12,7 +12,7 @@ export default function LoginPage() {
   return (
     <div className="min-w-[1024px] min-h-[768px]">
       <main className="flex justify-between">
-        <h1 className="border-b-30 border-black border-t-30 font-sans font-thin pb-8 pt-8 text-black text-[min(192px,16rem)]/[max(144px,6rem)] tracking-[-12px] uppercase">
+        <h1 className="border-b-30 border-black border-t-30 tagline text-black uppercase">
           {"Find the Buddy of Your Life!"
             .split(" ")
             .map((token, index) => <span className="block" key={index}>{token}</span>)}
