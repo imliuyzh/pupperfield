@@ -23,9 +23,7 @@ const useUserStore = create<UserState & UserActions>()(
       resetUserState: () => set(initialState),
       setUser: (email: string, name: string) => set({ email, name }),
     }),
-    {
-      name: 'pupperfield-user-storage',
-    },
+    { name: 'pupperfield-user-storage' },
   ),
 )
 
