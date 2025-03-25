@@ -46,7 +46,14 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-2" onSubmit={form.handleSubmit(async (values) => { await onSubmit(values); })}>
+      <form
+        className="flex flex-col gap-2"
+        onSubmit={() => {
+          form.handleSubmit(async (values) => {
+            await onSubmit(values);
+          });
+        }}
+      >
         <FormField
           control={form.control}
           name="name"
@@ -85,5 +92,5 @@ export default function LoginForm() {
         </Button>
       </form>
     </Form>
-  )
+  );
 }
