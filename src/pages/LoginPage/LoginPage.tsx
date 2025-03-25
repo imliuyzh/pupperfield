@@ -1,8 +1,7 @@
 import useUserStore from "@/stores/UserStore/UserStore";
-import logo from "@assets/images/logo.svg";
+import Footer from "@/components/Footer/Footer";
 import LoginForm from "@components/LoginForm/LoginForm";
-import { GitHub } from "react-feather";
-import { Link, Redirect } from "wouter";
+import { Redirect } from "wouter";
 
 export default function LoginPage() {
   const email = useUserStore(state => state.email), name = useUserStore(state => state.name);
@@ -21,20 +20,7 @@ export default function LoginPage() {
           <LoginForm />
         </div>
       </main>
-
-      <footer className="flex items-end justify-between md:lg:-mt-[18rem] xl:2xl:-mt-[32rem]">
-        <div className="flex gap-3 items-center pb-4 pl-4 text-xs text-black">
-          <a href="https://github.com/imliuyzh/fetch-frontend-takehome" rel="noreferrer" target="_blank">
-            <GitHub color="black" size={28} />
-          </a>
-          <p>© 2025 Yizhen Liu</p>
-        </div>
-        <Link to="/login">
-          <div className="bg-black flex mt-16 place-content-center relative right-0 size-[28vw]">
-            <img alt="Logo" src={logo} />
-          </div>
-        </Link>
-      </footer>
+      <Footer />
     </div>
   );
 }
