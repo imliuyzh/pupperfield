@@ -4,13 +4,13 @@ interface LogInRequestBody {
 };
 
 interface AuthResponse {
-  error?: any,
+  error?: unknown,
   ok: boolean,
 };
 
 async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
   try {
-    let response = await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
+    const response = await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
       body: JSON.stringify(body),
       credentials: "include",
       headers: {
@@ -27,7 +27,7 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
     }
 
     return { "ok": true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       error,
       "ok": false,
@@ -37,7 +37,7 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
 
 async function logOut(): Promise<AuthResponse> {
   try {
-    let response = await fetch("https://frontend-take-home-service.fetch.com/auth/logout", {
+    const response = await fetch("https://frontend-take-home-service.fetch.com/auth/logout", {
       credentials: "include",
       method: "POST",
     });
@@ -50,7 +50,7 @@ async function logOut(): Promise<AuthResponse> {
     }
 
     return { "ok": true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       error,
       "ok": false,

@@ -33,5 +33,6 @@
       "@slices/*": ["src/slices/*"],
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["./eslint.config.js"]
 }

@@ -22,7 +22,7 @@ const formSchema = z.object({
 
 export default function LoginForm() {
   const setUser = useUserStore((state: UserActions) => state.setUser);
-  const [_, setLocation] = useLocation();
+  const [, setLocation] = useLocation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,7 +32,7 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    let response = await logIn(values);
+    const response = await logIn(values);
     if (response.ok === false) {
       console.error(response.error);
       toast("Error", {
@@ -50,7 +50,7 @@ export default function LoginForm() {
         <FormField
           control={form.control}
           name="name"
-          render={({ field: { ref, ...restField } }) => (
+          render={({ field: { ...restField } }) => (
             <FormItem>
               <FormControl>
                 <Input
@@ -65,7 +65,7 @@ export default function LoginForm() {
         <FormField
           control={form.control}
           name="email"
-          render={({ field: { ref, ...restField } }) => (
+          render={({ field: { ...restField } }) => (
             <FormItem>
               <FormControl>
                 <Input
