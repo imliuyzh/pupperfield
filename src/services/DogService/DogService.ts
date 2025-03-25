@@ -12,10 +12,6 @@ type DogBreedsResponse = {
   breeds: string[] | null,
 };
 
-type SortFields = "age" | "breed" | "name";
-
-type SortOrders = "asc" | "desc";
-
 type DogSearchRequest = {
   breeds?: string[],
   zipCodes?: string[],
@@ -23,7 +19,7 @@ type DogSearchRequest = {
   ageMax?: number,
   size?: number,
   from?: number,
-  sort?: `${SortFields}:${SortOrders}`,
+  sort?: `${"age" | "breed" | "name"}:${"asc" | "desc"}`,
 };
 
 type DogSearchResult = {
