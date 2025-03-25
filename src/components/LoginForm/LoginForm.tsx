@@ -31,7 +31,12 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  /**
+   * Set the user's email and name once authenticated, jump to the home page
+   * or display an error message if something is not right.
+   * @param values validated form values
+   */
+  const onSubmit = async (values: z.infer<typeof formSchema>): Promise<void> => {
     const response = await logIn(values);
     if (response.ok === false) {
       console.error(response.error);

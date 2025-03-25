@@ -1,13 +1,18 @@
-interface LogInRequestBody {
+type LogInRequestBody = {
   email: string,
   name: string,
 };
 
-interface AuthResponse {
+type AuthResponse = {
   error?: unknown,
   ok: boolean,
 };
 
+/**
+ * Make a request to the login endpoint for a cookie that will be used later.
+ * @param body an object containing the email & name of user
+ * @returns an object containing the status and error if it exists
+ */
 async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
   try {
     const response = await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
@@ -35,6 +40,10 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
   }
 }
 
+/**
+ * Make a request to the logout endpoint to remove the cookie.
+ * @returns an object containing the status and error if it exists
+ */
 async function logOut(): Promise<AuthResponse> {
   try {
     const response = await fetch("https://frontend-take-home-service.fetch.com/auth/logout", {
@@ -44,7 +53,7 @@ async function logOut(): Promise<AuthResponse> {
 
     if (response.ok === false) {
       return {
-        "error": response.text(),
+        "error": await response.text(),
         "ok": false,
       };
     }
