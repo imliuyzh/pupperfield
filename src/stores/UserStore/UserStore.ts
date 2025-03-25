@@ -20,12 +20,16 @@ const useUserStore = create<UserState & UserActions>()(
   persist(
     (set) => ({
       ...initialState,
-      resetUserState: () => set(initialState),
-      setUser: (email: string, name: string) => set({ email, name }),
+      resetUserState: () => {
+        set(initialState);
+      },
+      setUser: (email: string, name: string) => {
+        set({ email, name });
+      },
     }),
     { name: 'pupperfield-user-storage' },
   ),
-)
+);
 
 export {
   useUserStore as default, type UserActions, type UserState
