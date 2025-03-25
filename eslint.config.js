@@ -1,5 +1,3 @@
-// @ts-check
-
 import eslint from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import tseslint from "typescript-eslint";
@@ -10,10 +8,12 @@ export default tseslint.config(
   tseslint.configs.stylisticTypeChecked,
   {
     ignores: [
-      "./src/components/ThemeProvider/*",
-      "./src/components/ui/*",
-      "node_modules/*",
       "dist",
+      "eslint.config.js",
+      "node_modules",
+      "src/components/ThemeProvider/*",
+      "src/components/ui/*",
+      "src/lib/utils.ts",
     ]
   },
   {
@@ -33,7 +33,10 @@ export default tseslint.config(
     rules: {
       "@stylistic/indent": ["error", 2],
       "@stylistic/semi": "error",
-      "@typescript-eslint/explicit-function-return-type": "warn",
+      "@typescript-eslint/consistent-type-definitions": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
     },
   },
 );

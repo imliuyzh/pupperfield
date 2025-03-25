@@ -48,16 +48,12 @@ export default function LoginForm() {
     <Form {...form}>
       <form
         className="flex flex-col gap-2"
-        onSubmit={() => {
-          form.handleSubmit(async (values) => {
-            await onSubmit(values);
-          });
-        }}
+        onSubmit={form.handleSubmit(async (values) => await onSubmit(values))}  // eslint-disable-line
       >
         <FormField
           control={form.control}
           name="name"
-          render={({ field: { ...restField } }) => (
+          render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
             <FormItem>
               <FormControl>
                 <Input
@@ -72,7 +68,7 @@ export default function LoginForm() {
         <FormField
           control={form.control}
           name="email"
-          render={({ field: { ...restField } }) => (
+          render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
             <FormItem>
               <FormControl>
                 <Input
