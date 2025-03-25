@@ -5,7 +5,7 @@ import { GitHub } from "react-feather";
 import { Link, Redirect } from "wouter";
 
 export default function LoginPage() {
-  const { email, name } = useUserStore(state => state);
+  const email = useUserStore(state => state.email), name = useUserStore(state => state.name);
   if (email !== null && name !== null) {
     return <Redirect replace to="/" />;
   }
