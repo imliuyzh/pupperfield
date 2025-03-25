@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import useUserStore, { type UserActions } from "@/stores/UserStore/UserStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { logIn } from "@services/AuthService/AuthService";
+import { LogIn } from "react-feather";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
@@ -89,6 +90,7 @@ export default function LoginForm() {
           className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-[var(--background)] rounded-none"
           type="submit"
         >
+          <LogIn color="white" />
           Submit
         </Button>
       </form>

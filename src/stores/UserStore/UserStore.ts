@@ -7,7 +7,7 @@ type UserState = {
 };
 
 type UserActions = {
-  resetUserState: () => void,
+  resetUser: () => void,
   setUser: (email: string, name: string) => void,
 };
 
@@ -20,7 +20,7 @@ const useUserStore = create<UserState & UserActions>()(
   persist(
     (set) => ({
       ...initialState,
-      resetUserState: () => {
+      resetUser: () => {
         set(initialState);
       },
       setUser: (email: string, name: string) => {
