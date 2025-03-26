@@ -1,12 +1,4 @@
-type LogInRequestBody = {
-  email: string,
-  name: string,
-};
-
-type AuthResponse = {
-  error?: unknown,
-  ok: boolean,
-};
+import type { AuthResponse, LogInRequestBody } from "@/types/Auth";
 
 /**
  * Make a request to the login endpoint for a cookie that will be used later.

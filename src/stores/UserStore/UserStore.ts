@@ -1,15 +1,6 @@
+import type { UserActions, UserState } from "@/types/User";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type UserState = {
-  email: string | null,
-  name: string | null,
-};
-
-type UserActions = {
-  resetUser: () => void,
-  setUser: (email: string, name: string) => void,
-};
 
 const initialState: UserState = {
   email: null,
@@ -27,10 +18,10 @@ const useUserStore = create<UserState & UserActions>()(
         set({ email, name });
       },
     }),
-    { name: 'pupperfield-user-storage' },
+    { name: "pupperfield-user-state" },
   ),
 );
 
 export {
-  useUserStore as default, type UserActions, type UserState
+  useUserStore as default,
 };

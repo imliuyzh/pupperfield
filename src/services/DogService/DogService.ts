@@ -1,48 +1,12 @@
-type Dog = {
-  id: string,
-  img: string,
-  name: string,
-  age: number,
-  zip_code: string,
-  breed: string,
-};
-
-type DogBreedsResponse = {
-  error?: unknown,
-  breeds: string[] | null,
-};
-
-type DogSearchRequest = {
-  breeds?: string[],
-  zipCodes?: string[],
-  ageMin?: number,
-  ageMax?: number,
-  size?: number,
-  from?: number,
-  sort?: `${"age" | "breed" | "name"}:${"asc" | "desc"}`,
-};
-
-type DogSearchResult = {
-  resultIds: string[],
-  total: number,
-  next?: string,
-  prev?: string,
-};
-
-type DogSearchResponse = {
-  error?: unknown,
-  result: DogSearchResult | null,
-};
-
-type DogInfoResponse = {
-  error?: unknown,
-  dogs: Dog[] | null,
-};
-
-type DogMatchResponse = {
-  error?: unknown,
-  match: string | null,
-};
+import type {
+  Dog,
+  DogBreedsResponse,
+  DogInfoResponse,
+  DogMatchResponse,
+  DogSearchRequest,
+  DogSearchResponse,
+  DogSearchResult
+} from "@/types/Dog";
 
 /**
  * Fetch a list of dog breeds.
@@ -90,12 +54,8 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
       }
     }
 
-    const response = await fetch("https://frontend-take-home-service.fetch.com/dogs/breeds", {
-      body: parameters,
+    const response = await fetch(`https://frontend-take-home-service.fetch.com/dogs/breeds${parameters}`, {
       credentials: "include",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
     });
 
     if (response.ok === false) {
@@ -186,8 +146,5 @@ async function getDogMatch(ids: string[]): Promise<DogMatchResponse> {
 }
 
 export {
-  getDogBreeds,
-  searchDogs,
-  getDogs,
-  getDogMatch,
+  getDogBreeds, getDogMatch, getDogs, searchDogs
 };

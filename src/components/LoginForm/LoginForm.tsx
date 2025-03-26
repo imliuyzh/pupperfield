@@ -7,7 +7,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useUserStore, { type UserActions } from "@/stores/UserStore/UserStore";
+import useUserStore from "@/stores/UserStore/UserStore";
+import type { UserActions } from "@/types/User";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { logIn } from "@services/AuthService/AuthService";
 import { LogIn } from "react-feather";

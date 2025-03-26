@@ -15,7 +15,7 @@ export default function Footer() {
         </a>
         <p>© 2025 Yizhen Liu</p>
       </div>
-      <Link to="/login">
+      <Link to="/">
         <div className="bg-black flex mt-16 place-content-center relative right-0 size-[28vw]">
           <img alt="Logo" src={logo} />
         </div>
