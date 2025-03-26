@@ -50,7 +50,7 @@ export default function Header(props: Props = {
               <User color="white" size={40} />
               <div className="flex flex-col gap-2">
                 <span className="block">{name}</span>
-                <span className="block">{email}</span>
+                <span className="block font-normal text-neutral-500">{email}</span>
               </div>
             </div>
           </DropdownMenuLabel>

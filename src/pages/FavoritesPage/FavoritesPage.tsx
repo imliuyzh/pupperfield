@@ -29,7 +29,7 @@ export default function FavoritesPage() {
       <Header showHome />
       <main>
         {favoriteDogs.size <= 0 &&
-          <h1 className="tagline text-[min(144px,8rem)]/[max(120px,5rem)] text-black tracking-[-8px]">
+          <h1 className="tagline text-[min(144px,8rem)]/[max(136px,6rem)] text-black tracking-[-8px]">
             Please mark more puppies as your favorites!
           </h1>
         }
