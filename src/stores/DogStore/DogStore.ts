@@ -1,16 +1,16 @@
-import type { DogActions, DogCandidate, DogState } from "@/types/Dog";
+import type { Dog, DogActions, DogState } from "@/types/Dog";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const initialState: DogState = {
-  favoriteDogs: new Map<string, DogCandidate>(),
+  favoriteDogs: new Map<string, Dog>(),
 };
 
 const useDogStore = create<DogState & DogActions>()(
   persist(
     (set) => ({
       ...initialState,
-      addFavoriteDog: (dog: DogCandidate) => {
+      addFavoriteDog: (dog: Dog) => {
         set((state) => {
           const map = new Map(state.favoriteDogs);
           map.set(dog.id, dog);

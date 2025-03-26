@@ -20,7 +20,9 @@ export default function LoginPage() {
           <LoginForm />
         </div>
       </main>
-      <Footer />
+      <div className="md:lg:-mt-[18rem] pl-4 xl:2xl:-mt-[32rem]">
+        <Footer showLogo />
+      </div>
     </div>
   );
 }

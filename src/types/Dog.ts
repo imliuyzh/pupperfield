@@ -7,14 +7,12 @@ export type Dog = {
   breed: string,
 };
 
-export type DogCandidate = Dog & { isMatched: boolean };
-
 export type DogState = {
-  favoriteDogs: Map<string, DogCandidate>
+  favoriteDogs: Map<string, Dog>,
 };
 
 export type DogActions = {
-  addFavoriteDog: (dog: DogCandidate) => void,
+  addFavoriteDog: (dog: Dog) => void,
   removeFavoriteDog: (dogId: string) => void,
   resetFavoriteDogs: () => void,
 };

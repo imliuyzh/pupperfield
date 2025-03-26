@@ -27,21 +27,25 @@ export default function Header(props: Props = {
   const [, setLocation] = useLocation();
 
   return (
-    <header className="flex items-center justify-between">
+    <header className="flex items-start justify-between">
       <div >
         <Link to="/">
-          <div className="bg-black flex h-[14rem] pl-[1rem] pr-[1rem] place-content-center w-[8rem]">
-            <img alt="Logo" src={logo} />
+          <div className="bg-black flex h-[24rem] pl-[1rem] pr-[1rem] items-end w-[8rem]">
+            <img alt="Logo" className="bottom-[3rem] relative" src={logo} />
           </div>
         </Link>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Menu className="hover:cursor-pointer" color="black" size={36} />
+          <Menu
+            className="hover:cursor-pointer relative top-[4rem]"
+            color="black"
+            size={36}
+          />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="rounded-none w-56">
-          <DropdownMenuLabel className="mb-2 mt-2">
-            <div className="flex gap-2 items-center">
+          <DropdownMenuLabel>
+            <div className="flex gap-4 items-center">
               <User color="white" size={40} />
               <div className="flex flex-col gap-2">
                 <span className="block">{name}</span>
