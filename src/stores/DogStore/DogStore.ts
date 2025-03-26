@@ -31,10 +31,7 @@ const useDogStore = create<DogState & DogActions>()(
         });
       },
       resetFavoriteDogs: () => {
-        set((state) => ({
-          ...state,
-          dogs: new Map<string, Dog>(),
-        }));
+        set(initialState);
       },
     }),
     { name: "pupperfield-user-state" },

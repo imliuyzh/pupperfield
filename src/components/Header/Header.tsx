@@ -7,6 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { logOut } from "@/services/AuthService/AuthService";
 import useDogStore from "@/stores/DogStore/DogStore";
 import useUserStore from "@/stores/UserStore/UserStore";
 import logo from "@assets/images/logo.svg";
@@ -74,7 +75,8 @@ export default function Header(props: Props = {
           </DropdownMenuGroup>
           <DropdownMenuItem
             className="hover:cursor-pointer"
-            onClick={() => {
+            onClick={async () => {  // eslint-disable-line
+              await logOut();
               resetFavoriteDogs();
               resetUser();
               setLocation("/login", { replace: true });

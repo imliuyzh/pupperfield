@@ -9,11 +9,8 @@ import { Redirect } from "wouter";
 
 export default function FavoritesPage() {
   const email = useUserStore(state => state.email), name = useUserStore(state => state.name);
-  if (email === null || name === null) {
-    return <Redirect replace to="/login" />;
-  }
-
   const favoriteDogs = useDogStore(state => state.favoriteDogs), resetFavoriteDogs = useDogStore(state => state.resetFavoriteDogs);
+
   const getAMatch = async () => {
     const response = await getDogMatch(Object.keys(favoriteDogs));
     if ("error" in response) {
@@ -23,6 +20,10 @@ export default function FavoritesPage() {
       });
     }
   };
+
+  if (email === null || name === null) {
+    return <Redirect replace to="/login" />;
+  }
   return (
     <div className="ml-[18vw] mr-[18vw]">
       <Header showHome />
