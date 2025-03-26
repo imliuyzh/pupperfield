@@ -45,7 +45,7 @@ export default function Header(props: Props = {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="rounded-none w-56">
           <DropdownMenuLabel>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center m-4">
               <User color="white" size={40} />
               <div className="flex flex-col gap-2">
                 <span className="block">{name}</span>
@@ -73,6 +73,7 @@ export default function Header(props: Props = {
             }
           </DropdownMenuGroup>
           <DropdownMenuItem
+            className="hover:cursor-pointer"
             onClick={() => {
               resetFavoriteDogs();
               resetUser();

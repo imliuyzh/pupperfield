@@ -1,5 +1,5 @@
-import useUserStore from "@/stores/UserStore/UserStore";
 import Footer from "@/components/Footer/Footer";
+import useUserStore from "@/stores/UserStore/UserStore";
 import LoginForm from "@components/LoginForm/LoginForm";
 import { Redirect } from "wouter";
 
