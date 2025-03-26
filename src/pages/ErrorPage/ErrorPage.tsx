@@ -7,7 +7,7 @@ export default function ErrorPage() {
     <main className="bg-[#300d38] flex flex-col justify-between min-h-[100vh] min-w-full overflow-hidden relative">
       <h1 className="lowercase pb-0 pt-0 tagline text-white z-1">
         <span className="block text-[min(144px,8rem)]/[max(120px,5rem)] w-3/4">
-          Sorry, something is going wrong. Do you want to
+          Sorry, something is wrong. Do you want to
         </span>
         <div className="font-bold text-[min(192px,18rem)]/[max(144px,12rem)] text-[var(--background)] tracking-[-20px]">
           <Link to="/">

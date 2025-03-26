@@ -8,6 +8,6 @@ export default function HomePage() {
     return <Redirect replace to="/login" />;
   }
   return (
-    <Header showFavorites={true} />
+    <Header showFavorites />
   );
 }

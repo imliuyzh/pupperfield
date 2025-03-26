@@ -10,18 +10,22 @@ import {
 import useDogStore from "@/stores/DogStore/DogStore";
 import useUserStore from "@/stores/UserStore/UserStore";
 import logo from "@assets/images/logo.svg";
-import { Home, LogOut, Star, User } from "react-feather";
+import { Home, LogOut, Menu, Star, User } from "react-feather";
 import { Link, useLocation } from "wouter";
 
 type Props = {
-  showHome?: boolean,
   showFavorites?: boolean,
+  showHome?: boolean,
 };
 
-export default function Header(props: Props) {
+export default function Header(props: Props = {
+  showFavorites: false,
+  showHome: false,
+}) {
   const resetFavoriteDogs = useDogStore(state => state.resetFavoriteDogs);
   const { email, name, resetUser } = useUserStore();
   const [, setLocation] = useLocation();
+
   return (
     <header className="flex items-center justify-between">
       <div >
@@ -33,11 +37,18 @@ export default function Header(props: Props) {
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <User className="hover:cursor-pointer" color="black" size={36} />
+          <Menu className="hover:cursor-pointer" color="black" size={36} />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="rounded-none w-56">
-          <DropdownMenuLabel className="font-semibold">{name}</DropdownMenuLabel>
-          <DropdownMenuLabel className="font-semibold">{email}</DropdownMenuLabel>
+          <DropdownMenuLabel className="mb-2 mt-2">
+            <div className="flex gap-2 items-center">
+              <User color="white" size={40} />
+              <div className="flex flex-col gap-2">
+                <span className="block">{name}</span>
+                <span className="block">{email}</span>
+              </div>
+            </div>
+          </DropdownMenuLabel>
           <DropdownMenuSeparator className="bg-neutral-800" />
           <DropdownMenuGroup>
             {props.showHome &&
