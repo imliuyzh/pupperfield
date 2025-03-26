@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,7 @@ import useDogStore from "@/stores/DogStore/DogStore";
 import useUserStore from "@/stores/UserStore/UserStore";
 import logo from "@assets/images/logo.svg";
 import { Home, LogOut, Menu, Star, User } from "react-feather";
+import { toast } from "sonner";
 import { Link, useLocation } from "wouter";
 
 type Props = {
@@ -26,6 +28,19 @@ export default function Header(props: Props = {
   const resetFavoriteDogs = useDogStore(state => state.resetFavoriteDogs);
   const { email, name, resetUser } = useUserStore();
   const [, setLocation] = useLocation();
+
+  const handleLogOut = async () => {
+    const response = await logOut();
+    if (response.ok) {
+      resetFavoriteDogs();
+      resetUser();
+      setLocation("/login", { replace: true });
+    } else {
+      toast("Error", {
+        description: "We encountered an unknown error, please close this page, clear history, and restart your browser.",
+      });
+    }
+  };
 
   return (
     <header className="flex items-start justify-between">
@@ -46,11 +61,11 @@ export default function Header(props: Props = {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="rounded-none w-56">
           <DropdownMenuLabel>
-            <div className="flex gap-4 items-center m-4">
+            <div className="flex gap-2 items-center m-4">
               <User color="white" size={40} />
               <div className="flex flex-col gap-2">
                 <span className="block">{name}</span>
-                <span className="block font-normal text-neutral-500">{email}</span>
+                <Badge variant="secondary">{email}</Badge>
               </div>
             </div>
           </DropdownMenuLabel>
@@ -76,10 +91,7 @@ export default function Header(props: Props = {
           <DropdownMenuItem
             className="hover:cursor-pointer"
             onClick={async () => {  // eslint-disable-line
-              await logOut();
-              resetFavoriteDogs();
-              resetUser();
-              setLocation("/login", { replace: true });
+              await handleLogOut();
             }}
           >
             <LogOut color="white" />

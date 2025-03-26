@@ -136,7 +136,7 @@ async function getDogMatch(ids: string[]): Promise<DogMatchResponse> {
       };
     }
 
-    return { match: (await response.json()) as string };
+    return (await response.json()) as DogMatchResponse;
   } catch (error: unknown) {
     return {
       error,

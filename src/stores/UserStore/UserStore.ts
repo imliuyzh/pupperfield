@@ -1,6 +1,6 @@
 import type { UserActions, UserState } from "@/types/User";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 const initialState: UserState = {
   email: null,
@@ -8,17 +8,26 @@ const initialState: UserState = {
 };
 
 const useUserStore = create<UserState & UserActions>()(
-  persist(
-    (set) => ({
-      ...initialState,
-      resetUser: () => {
-        set(initialState);
-      },
-      setUser: (email: string, name: string) => {
-        set({ email, name });
-      },
-    }),
-    { name: "pupperfield-user-state" },
+  devtools(
+    persist(
+      (set) => ({
+        ...initialState,
+        resetUser: () => {
+          set((state) => ({
+            ...state,
+            ...initialState,
+          }));
+        },
+        setUser: (email: string, name: string) => {
+          set((state) => ({
+            ...state,
+            email,
+            name,
+          }));
+        },
+      }),
+      { name: "pupperfield-user-state" },
+    )
   ),
 );
 

@@ -8,7 +8,7 @@ export type Dog = {
 };
 
 export type DogState = {
-  favoriteDogs: Map<string, Dog>,
+  favoriteDogs: Record<string, Dog>,
 };
 
 export type DogActions = {

@@ -8,6 +8,8 @@ export default function HomePage() {
     return <Redirect replace to="/login" />;
   }
   return (
-    <Header showFavorites />
+    <div className="bg-[var()--page-background]">
+      <Header showFavorites />
+    </div>
   );
 }
