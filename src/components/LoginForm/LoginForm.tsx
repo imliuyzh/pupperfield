@@ -91,7 +91,7 @@ export default function LoginForm() {
           type="submit"
         >
           <LogIn color="white" />
-          Submit
+          Log In
         </Button>
       </form>
     </Form>
