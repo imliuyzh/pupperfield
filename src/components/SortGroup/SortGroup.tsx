@@ -24,7 +24,7 @@ export default function SortGroup() {
           setSortField(value);
         }}
       >
-        <SelectTrigger className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none shadow-none text-black text-sm">
+        <SelectTrigger className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none cursor-pointer shadow-none text-black text-sm">
           <SelectValue />
         </SelectTrigger>
         <SelectContent className="rounded-none">

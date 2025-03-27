@@ -1,16 +1,16 @@
-import type { SearchStateActions, SearchState, Size, SortField, SortOrder } from "@/types/SearchState";
+import type { SearchStateActions, SearchState, SortField, SortOrder } from "@/types/SearchState";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 const initialState: SearchState = {
-  breed: null,
+  breed: undefined,
   from: 0,
-  maxAge: -1,
-  minAge: -1,
-  size: 25,
+  maxAge: undefined,
+  minAge: undefined,
+  size: 0,
   sortField: "breed",
   sortOrder: "asc",
-  zipCode: null,
+  zipCode: undefined,
 };
 
 const useSearchStateStore = create<SearchState & SearchStateActions>()(
@@ -42,7 +42,7 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
             minAge: age,
           }));
         },
-        setSize: (size: Size) => {
+        setSize: (size: number) => {
           set((state) => ({
             ...state,
             size,

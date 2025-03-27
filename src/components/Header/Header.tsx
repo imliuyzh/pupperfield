@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logOut } from "@/services/AuthService/AuthService";
 import useDogStore from "@/stores/DogStore/DogStore";
+import useSearchStateStore from "@/stores/SearchStateStore/SearchStateStore";
 import useUserStore from "@/stores/UserStore/UserStore";
 import logo from "@assets/images/logo.svg";
 import { Home, LogOut, Menu, Star, User } from "react-feather";
@@ -26,12 +26,14 @@ export default function Header(props: Props = {
   showHome: false,
 }) {
   const resetFavoriteDogs = useDogStore(state => state.resetFavoriteDogs);
+  const resetSearchState = useSearchStateStore(state => state.resetSearchState);
   const { email, name, resetUser } = useUserStore();
   const [, setLocation] = useLocation();
 
   const handleLogOut = async () => {
     const response = await logOut();
     if (response.ok) {
+      resetSearchState();
       resetFavoriteDogs();
       resetUser();
       setLocation("/login", { replace: true });
@@ -65,7 +67,7 @@ export default function Header(props: Props = {
               <User color="white" size={40} />
               <div className="flex flex-col gap-2">
                 <span className="block">{name}</span>
-                <Badge variant="secondary">{email}</Badge>
+                <span className="block text-xs">{email}</span>
               </div>
             </div>
           </DropdownMenuLabel>

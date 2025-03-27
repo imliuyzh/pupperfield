@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
@@ -15,30 +15,56 @@ import { Filter } from "react-feather";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { Skeleton } from "../ui/skeleton";
 
 type Prop = {
   isFilterOpened: boolean,
   setIsFilterOpened: React.Dispatch<boolean>,
 };
 
-const filterSchema = z
-  .object({
-    "breed": z.string().optional(),
-    "maxAge": z.number().nonnegative({ message: "maxAge needs to be a number greater than or equal to zero." }).optional(),
-    "minAge": z.number().nonnegative({ message: "minAge needs to be a number greater than or equal to zero." }).optional(),
-    "zipCode": z.string().optional(),
-  })
-  .refine((data) => Object.values(data).some((value: string | number | undefined) => value !== undefined), {
-    message: 'At least one field must be non-empty.',
-  });
+const filterSchema = z.object({
+  "breed": z.string().optional(),
+  "maxAge": z.coerce.number().nonnegative({ message: "maxAge needs to be a number greater than or equal to zero." }).optional(),
+  "minAge": z.coerce.number().nonnegative({ message: "minAge needs to be a number greater than or equal to zero." }).optional(),
+  "zipCode": z.string().optional(),
+});
 
 export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Prop) {
   const [breedList, setBreedList] = React.useState<string[]>([]);
 
+  const breed = useSearchStateStore(state => state.breed),
+    maxAge = useSearchStateStore(state => state.maxAge),
+    minAge = useSearchStateStore(state => state.minAge),
+    zipCode = useSearchStateStore(state => state.zipCode),
+    setBreed = useSearchStateStore(state => state.setBreed),
+    setMaxAge = useSearchStateStore(state => state.setMaxAge),
+    setMinAge = useSearchStateStore(state => state.setMinAge),
+    setZipCode = useSearchStateStore(state => state.setZipCode);
+
   const form = useForm<z.infer<typeof filterSchema>>({
     resolver: zodResolver(filterSchema),
+    values: {
+      "breed": breed,
+      "maxAge": maxAge,
+      "minAge": minAge,
+      "zipCode": zipCode,
+    },
   });
+
+  const onSubmit = (values: z.infer<typeof filterSchema>) => {
+    if (values.breed !== undefined && values.breed.length > 0) {
+      setBreed(values.breed);
+    }
+    if (values.maxAge !== undefined && values.maxAge > -1) {
+      setMaxAge(values.maxAge);
+    }
+    if (values.minAge !== undefined && values.minAge > -1) {
+      setMinAge(values.minAge);
+    }
+    if (values.zipCode !== undefined && values.zipCode.length > 0) {
+      setZipCode(values.zipCode);
+    }
+    setIsFilterOpened(false);
+  };
 
   React.useEffect(() => {
     getDogBreeds()
@@ -74,126 +100,91 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
         />
       </PopoverTrigger>
       <PopoverContent className="w-80">
-        <div>
-          <div className="block">
-            <h4 className="font-medium leading-none">Filter</h4>
-          </div>
-          <Form {...form}>
-            <form
-              className="flex flex-col gap-4 mt-8"
-              // onSubmit={form.handleSubmit(async (values) => handleSearch(values))}  // eslint-disable-line
-            >
-              <FormField
-                control={form.control}
-                name="breed"
-                render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
-                  <FormItem>
-                    <FormLabel>Breed</FormLabel>
-                    {breedList.length <= 0 &&
-                      <div className="flex flex-col gap-1">
-                        <Skeleton className="h-3 rounded-3xl w-full" />
-                        <Skeleton className="h-3 rounded-3xl w-full" />
-                      </div>
-                    }
-                    {breedList.length > 0 &&
-                      <Select>
-                        <FormControl>
-                          <SelectTrigger className="w-full">
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {breedList.map((breed) => (
-                            <SelectItem key={breed} value={breed}>{breed}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    }
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex gap-4">
-                <FormField
-                  control={form.control}
-                  name="minAge"
-                  render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
-                    <FormItem>
-                      <FormLabel>Min Age</FormLabel>
-                      <FormControl>
-                        <Input className="w-full" type="number" {...restField} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="maxAge"
-                  render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
-                    <FormItem>
-                      <FormLabel>Max Age</FormLabel>
-                      <FormControl>
-                        <Input className="w-full" type="number" {...restField} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="zipCode"
-                render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
-                  <FormItem>
-                    <FormLabel>Zip Code</FormLabel>
+        <Form {...form}>
+          <form
+            className="flex flex-col gap-2"
+            onSubmit={form.handleSubmit(onSubmit)}  // eslint-disable-line
+          >
+            <FormField
+              control={form.control}
+              name="breed"
+              render={({ field: { onChange, ref, ...restField} }) => ( // eslint-disable-line
+                <FormItem>
+                  <Select disabled={breedList.length <= 0} onValueChange={onChange} {...restField}>
                     <FormControl>
-                      <Input className="w-full" {...restField} />
+                      <SelectTrigger className="border-[#27272a] border-1 w-full">
+                        <SelectValue placeholder="Breed" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {breedList.map((breed) => (
+                        <SelectItem key={breed} value={breed}>{breed}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex gap-4">
+              <FormField
+                control={form.control}
+                name="minAge"
+                render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        className="border-[#27272a] border-1 w-full"
+                        placeholder="Min Age"
+                        {...restField}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button
-                className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-[var(--background)] rounded-none"
-                type="submit"
-              >
-                Apply
-              </Button>
-            </form>
-          </Form>
-        </div>
+              <FormField
+                control={form.control}
+                name="maxAge"
+                render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        className="border-[#27272a] border-1 w-full"
+                        placeholder="Max Age"
+                        {...restField}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="zipCode"
+              render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      className="border-[#27272a] border-1 w-full"
+                      placeholder="Zip Code"
+                      {...restField}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              className="bg-white text-black hover:cursor-pointer mt-2 rounded-none"
+              type="submit"
+            >
+              Apply
+            </Button>
+          </form>
+        </Form>
       </PopoverContent>
     </Popover>
   );
 }
-
-
-/*
-              <FormField
-                control={form.control}
-                name="breeds"
-                render={({ field: { ref, ...restField } }) => ( // eslint-disable-line
-                  <FormItem>
-                    <FormLabel>Breeds</FormLabel>
-                    <FormControl>
-                      <AsyncSelect
-                        cacheOptions
-                        isMulti
-                        loadOptions={loadBreeds}
-                        noOptionsMessage={() => "No matches."}
-                      />
-                    </FormControl>
-                    <FormMessage className="italic text-black" />
-                  </FormItem>
-                )}
-              />
-
-  const addBreed = useSearchStateStore(state => state.addBreed),
-    removeBreed = useSearchStateStore(state => state.removeBreed),
-    setMaxAge = useSearchStateStore(state => state.setMaxAge),
-    setMinAge = useSearchStateStore(state => state.setMinAge),
-    addZipCode = useSearchStateStore(state => state.addZipCode),
-    removeZipCode = useSearchStateStore(state => state.removeZipCode),
-    resetSearchState = useSearchStateStore(state => state.resetSearchState);
-*/

@@ -47,24 +47,20 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
     for (const [key, value] of Object.entries(payload)) {
       if (Array.isArray(value)) {
         parameters.set(key, value.join(","));
-      } else if (typeof value === "number") {
-        parameters.set(key, value.toString());
       } else {
-        parameters.set(key, value);
+        parameters.set(key, value.toString());
       }
     }
 
-    const response = await fetch(`https://frontend-take-home-service.fetch.com/dogs/breeds${parameters}`, {
+    const response = await fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${parameters}`, {
       credentials: "include",
     });
-
     if (response.ok === false) {
       return {
         error: await response.text(),
         result: null,
       };
     }
-
     return { result: (await response.json()) as DogSearchResult };
   } catch (error: unknown) {
     return {

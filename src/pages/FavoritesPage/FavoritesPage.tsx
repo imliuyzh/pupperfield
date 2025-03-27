@@ -1,4 +1,4 @@
-import DogCard from "@/components/DogCard/DogCard";
+import DogCardList from "@/components/DogCardList/DogCardList";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import MatchDialog from "@/components/MatchDialog/MatchDialog";
@@ -46,11 +46,9 @@ export default function FavoritesPage() {
           </h1>
         }
         {Object.keys(favoriteDogs).length > 0 &&
-          <>
-            <div className="columns-[300px] pb-24 pt-48">
-              {Object.values(favoriteDogs).map((dog: Dog) => <DogCard dog={dog} key={crypto.randomUUID()} />)}
-            </div>
-            <div className="flex gap-4">
+          <div className="mt-20">
+            <DogCardList dogs={Object.values(favoriteDogs)} />
+            <div className="flex gap-4 mt-32">
               <Button
                 className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-[var(--background)] rounded-none"
                 onClick={async () => await getAMatch()} // eslint-disable-line
@@ -66,10 +64,10 @@ export default function FavoritesPage() {
               </Button>
             </div>
             <MatchDialog match={match} setMatch={setMatch} />
-          </>
+          </div>
         }
       </main>
-      <div className="mt-24">
+      <div className="mb-[2rem] mt-24">
         <Footer />
       </div>
     </div>
