@@ -56,12 +56,12 @@ export default function Header(props: Props = {
           <Menu
             className="hover:cursor-pointer relative top-[4rem]"
             color="black"
-            size={36}
+            size={28}
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="rounded-none w-56">
           <DropdownMenuLabel>
-            <div className="flex gap-2 items-center m-4">
+            <div className="flex gap-4 items-center m-4">
               <User color="white" size={40} />
               <div className="flex flex-col gap-2">
                 <span className="block">{name}</span>

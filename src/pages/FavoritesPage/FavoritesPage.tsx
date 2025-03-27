@@ -37,43 +37,41 @@ export default function FavoritesPage() {
   }
 
   return (
-    <>
-      <div className="ml-[18vw] mr-[18vw]">
-        <Header showHome />
-        <main>
-          {Object.keys(favoriteDogs).length <= 0 &&
-            <h1 className="tagline text-[min(144px,8rem)]/[max(136px,6rem)] text-black tracking-[-8px]">
-              Please mark more puppies as your favorites!
-            </h1>
-          }
-          {Object.keys(favoriteDogs).length > 0 &&
-            <>
-              <div className="columns-[300px] pb-24 pt-48">
-                {Object.values(favoriteDogs).map((dog: Dog) => <DogCard dog={dog} key={crypto.randomUUID()} />)}
-              </div>
-              <div className="flex gap-4">
-                <Button
-                  className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-[var(--background)] rounded-none"
-                  onClick={async () => await getAMatch()} // eslint-disable-line
-                >
-                  Match
-                </Button>
-                <Button
-                  className="dark:bg-transparent dark:hover:bg-transparent hover:cursor-pointer hover:text-black rounded-none text-black"
-                  onClick={resetFavoriteDogs}
-                  variant="outline"
-                >
-                  Clear
-                </Button>
-              </div>
-              <MatchDialog match={match} setMatch={setMatch} />
-            </>
-          }
-        </main>
-        <div className="mt-24">
-          <Footer />
-        </div>
+    <div className="ml-[18vw] mr-[18vw]">
+      <Header showHome />
+      <main>
+        {Object.keys(favoriteDogs).length <= 0 &&
+          <h1 className="tagline text-[min(144px,8rem)]/[max(136px,6rem)] text-black tracking-[-8px]">
+            Please mark more puppies as your favorites!
+          </h1>
+        }
+        {Object.keys(favoriteDogs).length > 0 &&
+          <>
+            <div className="columns-[300px] pb-24 pt-48">
+              {Object.values(favoriteDogs).map((dog: Dog) => <DogCard dog={dog} key={crypto.randomUUID()} />)}
+            </div>
+            <div className="flex gap-4">
+              <Button
+                className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-[var(--background)] rounded-none"
+                onClick={async () => await getAMatch()} // eslint-disable-line
+              >
+                Match
+              </Button>
+              <Button
+                className="dark:bg-transparent dark:hover:bg-transparent hover:cursor-pointer hover:text-black rounded-none text-black"
+                onClick={resetFavoriteDogs}
+                variant="outline"
+              >
+                Clear
+              </Button>
+            </div>
+            <MatchDialog match={match} setMatch={setMatch} />
+          </>
+        }
+      </main>
+      <div className="mt-24">
+        <Footer />
       </div>
-    </>
+    </div>
   );
 }
