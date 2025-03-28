@@ -14,7 +14,6 @@ type Prop = {
   setMatch: React.Dispatch<Dog | null>,
 };
 
-
 export default function MatchDialog({ match, setMatch }: Prop) {
   const onOpenChange = (open: boolean) => {
     if (open === false) {

@@ -1,4 +1,5 @@
 import type { AuthResponse, LogInRequestBody } from "@/types/Auth";
+import useUserStore from "@/stores/UserStore/UserStore";
 
 /**
  * Make a request to the login endpoint for a cookie that will be used later.
@@ -15,14 +16,12 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
       },
       method: "POST",
     });
-
     if (response.ok === false) {
       return {
         "error": await response.text(),
         "ok": false,
       };
     }
-
     return { "ok": true };
   } catch (error: unknown) {
     return {
@@ -38,18 +37,22 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
  */
 async function logOut(): Promise<AuthResponse> {
   try {
-    const response = await fetch("https://frontend-take-home-service.fetch.com/auth/logout", {
+    const request = new Request("https://frontend-take-home-service.fetch.com/auth/logout", {
       credentials: "include",
       method: "POST",
     });
-
-    if (response.ok === false) {
-      return {
-        "error": await response.text(),
-        "ok": false,
-      };
+    let response = await fetch(request);
+    if (response.status === 401) {
+      const { ok, error } = await getNewToken();
+      if (ok) {
+        response = await fetch(request);
+      } else {
+        return { ok, error };
+      }
     }
-
+    if (response.ok === false) {
+      throw await response.text();
+    }
     return { "ok": true };
   } catch (error: unknown) {
     return {
@@ -59,7 +62,19 @@ async function logOut(): Promise<AuthResponse> {
   }
 }
 
+async function getNewToken(): Promise<AuthResponse> {
+  const { email, name } = useUserStore.getState();
+  if (email === null || name === null) {
+    return {
+      "error": "User is not logged in.",
+      "ok": false
+    };
+  }
+  return await logIn({ email, name });
+}
+
 export {
+  getNewToken,
   logIn,
   logOut
 };

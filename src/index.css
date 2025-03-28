@@ -128,6 +128,6 @@
 
 @layer components {
   .tagline {
-    @apply font-sans font-thin pb-8 pt-8 text-[min(192px,16rem)]/[max(144px,6rem)] tracking-[-12px];
+    @apply font-sans font-thin pb-8 pt-8 text-[min(192px,16rem)]/[max(152px,6rem)] tracking-[-12px];
   }
 }

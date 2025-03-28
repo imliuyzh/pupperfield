@@ -25,6 +25,7 @@ const formSchema = z.object({
 export default function LoginForm() {
   const setUser = useUserStore((state: UserActions) => state.setUser);
   const [, setLocation] = useLocation();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
