@@ -3,14 +3,14 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 const initialState: SearchState = {
-  breed: undefined,
+  breed: null,
   from: 0,
-  maxAge: undefined,
-  minAge: undefined,
+  maxAge: null,
+  minAge: null,
   size: 0,
   sortField: "breed",
   sortOrder: "asc",
-  zipCode: undefined,
+  zipCode: null,
 };
 
 const useSearchStateStore = create<SearchState & SearchStateActions>()(
@@ -18,7 +18,7 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
     persist(
       (set) => ({
         ...initialState,
-        setBreed: (breed: string) => {
+        setBreed: (breed: string | null) => {
           set((state) => ({
             ...state,
             breed
@@ -30,13 +30,13 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
             from,
           }));
         },
-        setMaxAge: (age: number) => {
+        setMaxAge: (age: number | null) => {
           set((state) => ({
             ...state,
             maxAge: age,
           }));
         },
-        setMinAge: (age: number) => {
+        setMinAge: (age: number | null) => {
           set((state) => ({
             ...state,
             minAge: age,
@@ -60,7 +60,7 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
             sortOrder: order,
           }));
         },
-        setZipCode: (zipCode: string) => {
+        setZipCode: (zipCode: string | null) => {
           set((state) => ({
             ...state,
             zipCode,

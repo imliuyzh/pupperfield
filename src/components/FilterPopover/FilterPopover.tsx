@@ -22,10 +22,10 @@ type Prop = {
 };
 
 const filterSchema = z.object({
-  "breed": z.string().optional(),
-  "maxAge": z.coerce.number().nonnegative({ message: "maxAge needs to be a number greater than or equal to zero." }).optional(),
-  "minAge": z.coerce.number().nonnegative({ message: "minAge needs to be a number greater than or equal to zero." }).optional(),
-  "zipCode": z.string().optional(),
+  "breed": z.optional(z.string().min(1, { message: "breed needs to be at least 1 character long." })),
+  "maxAge": z.union([z.undefined(), z.coerce.number().nonnegative({ message: "maxAge needs to be a number greater than or equal to zero." })]),
+  "minAge": z.union([z.undefined(), z.coerce.number().nonnegative({ message: "minAge needs to be a number greater than or equal to zero." })]),
+  "zipCode": z.optional(z.string().min(1, { message: "zipCode needs to be at least 1 character long." })),
 });
 
 export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Prop) {
@@ -36,6 +36,7 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
     minAge = useSearchStateStore(state => state.minAge),
     zipCode = useSearchStateStore(state => state.zipCode),
     setBreed = useSearchStateStore(state => state.setBreed),
+    setFrom = useSearchStateStore(state => state.setFrom),
     setMaxAge = useSearchStateStore(state => state.setMaxAge),
     setMinAge = useSearchStateStore(state => state.setMinAge),
     setZipCode = useSearchStateStore(state => state.setZipCode);
@@ -43,26 +44,43 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
   const form = useForm<z.infer<typeof filterSchema>>({
     resolver: zodResolver(filterSchema),
     values: {
-      "breed": breed,
-      "maxAge": maxAge,
-      "minAge": minAge,
-      "zipCode": zipCode,
+      "breed": breed ?? undefined,
+      "maxAge": maxAge ?? undefined,
+      "minAge": minAge ?? undefined,
+      "zipCode": zipCode ?? undefined,
     },
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
+    console.log(values);
     if (values.breed !== undefined && values.breed.length > 0) {
       setBreed(values.breed);
+      setFrom(0);
+    } else {
+      setBreed(null);
     }
+  
     if (values.maxAge !== undefined && values.maxAge > -1) {
       setMaxAge(values.maxAge);
+      setFrom(0);
+    } else {
+      setMaxAge(null);
     }
+  
     if (values.minAge !== undefined && values.minAge > -1) {
       setMinAge(values.minAge);
+      setFrom(0);
+    } else {
+      setMinAge(null);
     }
+
     if (values.zipCode !== undefined && values.zipCode.length > 0) {
       setZipCode(values.zipCode);
+      setFrom(0);
+    } else {
+      setZipCode(null);
     }
+  
     setIsFilterOpened(false);
   };
 
@@ -110,7 +128,11 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
               name="breed"
               render={({ field: { onChange, ref, ...restField} }) => ( // eslint-disable-line
                 <FormItem>
-                  <Select disabled={breedList.length <= 0} onValueChange={onChange} {...restField}>
+                  <Select
+                    disabled={breedList.length <= 0}
+                    onValueChange={onChange}
+                    {...restField}
+                  >
                     <FormControl>
                       <SelectTrigger className="border-[#27272a] border-1 w-full">
                         <SelectValue placeholder="Breed" />

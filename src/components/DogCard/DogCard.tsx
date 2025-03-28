@@ -20,7 +20,7 @@ export default function DogCard({ dog }: Prop) {
     addFavoriteDog = useDogStore(state => state.addFavoriteDog),
     removeFavoriteDog = useDogStore(state => state.removeFavoriteDog);
   return (
-    <Card className="bg-transparent border-none break-inside-avoid gap-0 inline-blockmb-8 py-0 rounded-none shadow-none w-[300px]">
+    <Card className="bg-transparent border-none break-inside-avoid gap-0 inline-block py-0 rounded-none shadow-none w-[300px]">
       <CardContent className="px-0">
         <img
           alt={dog.name}
@@ -29,7 +29,7 @@ export default function DogCard({ dog }: Prop) {
           src={dog.img}
         />
       </CardContent>
-      <CardHeader className="bg-black flex items-center justify-between py-6 text-white w-full">
+      <CardHeader className="bg-black flex items-center justify-between overflow-hidden py-6 text-white w-full">
         {dog.id in favoriteDogs &&
           <Trash2
             className="hover:cursor-pointer"

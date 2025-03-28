@@ -40,16 +40,16 @@ export default function HomePage() {
       size: parseInt(pageSize),
       sort: `${sortField}:${sortOrder}`,
     };
-    if (breed !== undefined && breed.length > 0) {
+    if (breed !== null && breed.length > 0) {
       payload.breeds = [breed];
     }
-    if (maxAge !== undefined && maxAge > -1) {
+    if (maxAge !== null && maxAge > -1) {
       payload.ageMax = maxAge;
     }
-    if (minAge !== undefined && minAge > -1) {
+    if (minAge !== null && minAge > -1) {
       payload.ageMin = minAge;
     }
-    if (zipCode !== undefined && zipCode.length > 0) {
+    if (zipCode !== null && zipCode.length > 0) {
       payload.zipCodes = [zipCode];
     }
     return payload;
@@ -87,7 +87,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="ml-[18vw] mr-[18vw]">
+    <div className="m-auto w-[64vw]">
       <Header showFavorites />
       <aside className="flex gap-18 items-center justify-between mt-36">
         <SortGroup />
@@ -110,7 +110,7 @@ export default function HomePage() {
         {loading &&
           <div className="flex gap-12 place-content-center text-black w-full">
             <Loader className="animate-spin" color="black" size={32} />
-            Loading...
+            <span>Loading...</span>
           </div>
         }
         {loading == false && resultList.length <= 0 &&
@@ -120,7 +120,7 @@ export default function HomePage() {
         }
         {loading == false && resultList.length > 0 && <DogCardList dogs={resultList} />}
       </main>
-      <footer className="mb-[4rem] mt-[2rem]">
+      <div className="mb-[4rem] mt-20">
         <PupperfieldPagination
           cursor={from}
           pageSize={pageSize}
@@ -128,7 +128,7 @@ export default function HomePage() {
           setCursor={setFrom}
           setPageSize={setPageSize}
         />
-      </footer>
+      </div>
     </div>
   );
 }

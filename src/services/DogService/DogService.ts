@@ -7,6 +7,7 @@ import type {
   DogSearchResponse,
   DogSearchResult
 } from "@/types/Dog";
+import { getNewToken } from "@/services/AuthService/AuthService";
 
 /**
  * Fetch a list of dog breeds.
@@ -14,23 +15,26 @@ import type {
  */
 async function getDogBreeds(): Promise<DogBreedsResponse> {
   try {
-    const response = await fetch(
-      "https://frontend-take-home-service.fetch.com/dogs/breeds",
-      { credentials: "include" }
-    );
-
-    if (response.ok === false) {
-      return {
-        breeds: null,
-        error: await response.text(),
-      };
+    const request = new Request("https://frontend-take-home-service.fetch.com/dogs/breeds", {
+      credentials: "include",
+    });
+    let response = await fetch(request);
+    if (response.status === 401) {
+      const { ok, error } = await getNewToken();
+      if (ok) {
+        response = await fetch(request);
+      } else {
+        throw error;
+      }
     }
-
+    if (response.ok === false) {
+      throw await response.text();
+    }
     return { breeds: (await response.json()) as string[] };
   } catch (error: unknown) {
     return {
       breeds: null,
-      error,
+      error
     };
   }
 }
@@ -52,14 +56,20 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
       }
     }
 
-    const response = await fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${parameters}`, {
+    const request = new Request(`https://frontend-take-home-service.fetch.com/dogs/search?${parameters}`, {
       credentials: "include",
     });
+    let response = await fetch(request);
+    if (response.status === 401) {
+      const { ok, error } = await getNewToken();
+      if (ok) {
+        response = await fetch(request);
+      } else {
+        throw error;
+      }
+    }
     if (response.ok === false) {
-      return {
-        error: await response.text(),
-        result: null,
-      };
+      throw await response.text();
     }
     return { result: (await response.json()) as DogSearchResult };
   } catch (error: unknown) {
@@ -78,13 +88,10 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
 async function getDogs(ids: string[]): Promise<DogInfoResponse> {
   try {
     if (ids.length > 100) {
-      return {
-        dogs: null,
-        error: "More than 100 dog IDs received.",
-      };
+      throw new Error("More than 100 dog IDs received.");
     }
 
-    const response = await fetch("https://frontend-take-home-service.fetch.com/dogs", {
+    const request = new Request("https://frontend-take-home-service.fetch.com/dogs", {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {
@@ -92,14 +99,18 @@ async function getDogs(ids: string[]): Promise<DogInfoResponse> {
       },
       method: "POST",
     });
-
-    if (response.ok === false) {
-      return {
-        dogs: null,
-        error: await response.text(),
-      };
+    let response = await fetch(request);
+    if (response.status === 401) {
+      const { ok, error } = await getNewToken();
+      if (ok) {
+        response = await fetch(request);
+      } else {
+        throw error;
+      }
     }
-
+    if (response.ok === false) {
+      throw await response.text();
+    }
     return { dogs: (await response.json()) as Dog[] };
   } catch (error: unknown) {
     return {
@@ -116,7 +127,7 @@ async function getDogs(ids: string[]): Promise<DogInfoResponse> {
  */
 async function getDogMatch(ids: string[]): Promise<DogMatchResponse> {
   try {
-    const response = await fetch("https://frontend-take-home-service.fetch.com/dogs/match", {
+    const request = new Request("https://frontend-take-home-service.fetch.com/dogs/match", {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {
@@ -124,14 +135,18 @@ async function getDogMatch(ids: string[]): Promise<DogMatchResponse> {
       },
       method: "POST",
     });
-
-    if (response.ok === false) {
-      return {
-        error: await response.text(),
-        match: null,
-      };
+    let response = await fetch(request);
+    if (response.status === 401) {
+      const { ok, error } = await getNewToken();
+      if (ok) {
+        response = await fetch(request);
+      } else {
+        throw error;
+      }
     }
-
+    if (response.ok === false) {
+      throw await response.text();
+    }
     return (await response.json()) as DogMatchResponse;
   } catch (error: unknown) {
     return {
