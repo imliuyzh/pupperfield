@@ -78,12 +78,6 @@ export default function FilterPopover({
 
   const form = useForm<z.infer<typeof filterSchema>>({
     resolver: zodResolver(filterSchema),
-    defaultValues: {
-      breed: breed ?? undefined,
-      maxAge: maxAge > -1 ? maxAge : undefined,
-      minAge: minAge > -1 ? minAge : undefined,
-      zipCode: zipCode ?? undefined,
-    }
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
