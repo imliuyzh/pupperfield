@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -6,16 +7,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import useDogStore from "@/stores/DogStore/DogStore";
-import { Dog } from "@/types/Dog";
+import type { Dog } from "@/types/Dog";
 import { MapPin, Star, Trash2, Zap } from "react-feather";
-import { Badge } from "../ui/badge";
 
-type Prop = {
-  dog: Dog,
-  key: string,
+type Props = {
+  dog: Dog;
+  key: string;
 };
 
-export default function DogCard({ dog }: Prop) {
+export default function DogCard({ dog }: Props) {
   const favoriteDogs = useDogStore(state => state.favoriteDogs),
     addFavoriteDog = useDogStore(state => state.addFavoriteDog),
     removeFavoriteDog = useDogStore(state => state.removeFavoriteDog);
@@ -53,13 +53,21 @@ export default function DogCard({ dog }: Prop) {
         <div className="flex flex-col gap-2 items-end">
           <CardTitle>{dog.name}</CardTitle>
           <CardDescription>
-            <span className="block text-right">{`${dog.age.toString()} Year(s) Old`}</span>
+            <span className="block text-right">
+              {`${dog.age.toString()} Year(s) Old`}
+            </span>
             <div className="flex gap-4 mt-6">
-              <Badge className="bg-transparent border-none p-0 text-white" key={crypto.randomUUID()}>
+              <Badge
+                className="bg-transparent border-none p-0 text-white"
+                key={crypto.randomUUID()}
+              >
                 <Zap color="white" size={20} />
                 {dog.breed}
               </Badge>
-              <Badge className="bg-transparent border-none p-0 text-white" key={crypto.randomUUID()}>
+              <Badge
+                className="bg-transparent border-none p-0 text-white"
+                key={crypto.randomUUID()}
+              >
                 <MapPin color="white" size={20} />
                 {dog.zip_code}
               </Badge>

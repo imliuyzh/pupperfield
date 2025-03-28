@@ -8,17 +8,17 @@ import { getDogs, searchDogs } from "@/services/DogService/DogService";
 import useSearchStateStore from "@/stores/SearchStateStore/SearchStateStore";
 import useUserStore from "@/stores/UserStore/UserStore";
 import type { Dog, DogInfoResponse, DogSearchRequest, DogSearchResponse } from "@/types/Dog";
-import { PageSize } from "@/types/SearchState";
-import React from "react";
+import type { PageSize } from "@/types/SearchState";
+import { useEffect, useState } from "react";
 import { Loader, RefreshCcw } from "react-feather";
 import { toast } from "sonner";
 import { Redirect } from "wouter";
 
 export default function HomePage() {
-  const [pageSize, setPageSize] = React.useState<PageSize>("25"),
-    [loading, setLoading] = React.useState<boolean>(false),
-    [resultList, setResultList] = React.useState<Dog[]>([]),
-    [isFilterOpened, setIsFilterOpened] = React.useState<boolean>(false);
+  const [pageSize, setPageSize] = useState<PageSize>("25"),
+    [loading, setLoading] = useState<boolean>(false),
+    [resultList, setResultList] = useState<Dog[]>([]),
+    [isFilterOpened, setIsFilterOpened] = useState<boolean>(false);
 
   const email = useUserStore(state => state.email),
     name = useUserStore(state => state.name);
@@ -56,7 +56,7 @@ export default function HomePage() {
     return payload;
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (email !== null && name !== null) {
       setLoading(true);
       searchDogs(createDogSearchRequest())

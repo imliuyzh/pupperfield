@@ -17,8 +17,8 @@ import { toast } from "sonner";
 import { Link, useLocation } from "wouter";
 
 type Props = {
-  showFavorites?: boolean,
-  showHome?: boolean,
+  showFavorites?: boolean;
+  showHome?: boolean;
 };
 
 export default function Header(props: Props = {

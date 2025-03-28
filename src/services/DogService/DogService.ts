@@ -1,3 +1,4 @@
+import { getNewToken } from "@/services/AuthService/AuthService";
 import type {
   Dog,
   DogBreedsResponse,
@@ -7,7 +8,6 @@ import type {
   DogSearchResponse,
   DogSearchResult
 } from "@/types/Dog";
-import { getNewToken } from "@/services/AuthService/AuthService";
 
 /**
  * Fetch a list of dog breeds.

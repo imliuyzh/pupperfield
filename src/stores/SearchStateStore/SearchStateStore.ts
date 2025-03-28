@@ -1,4 +1,4 @@
-import type { SearchStateActions, SearchState, SortField, SortOrder } from "@/types/SearchState";
+import type { SearchState, SearchStateActions, SortField, SortOrder } from "@/types/SearchState";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -79,5 +79,5 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
 );
 
 export {
-  useSearchStateStore as default,
+  useSearchStateStore as default
 };

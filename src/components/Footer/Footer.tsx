@@ -2,11 +2,7 @@ import logo from "@assets/images/logo.svg";
 import { GitHub } from "react-feather";
 import { Link } from "wouter";
 
-type Prop = {
-  showLogo?: boolean,
-};
-
-export default function Footer(prop: Prop) {
+export default function Footer(prop: { showLogo?: boolean }) {
   return (
     <footer className="flex items-end justify-between">
       <div className="flex gap-4 items-center pb-4 text-xs text-black">

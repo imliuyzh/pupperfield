@@ -32,5 +32,5 @@ const useUserStore = create<UserState & UserActions>()(
 );
 
 export {
-  useUserStore as default,
+  useUserStore as default
 };

@@ -13,15 +13,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PageSize } from "@/types/SearchState";
-import React from "react";
+import type { PageSize } from "@/types/SearchState";
+import type { Dispatch } from "react";
 
-type Prop = {
-  cursor: number,
-  pageSize: PageSize,
-  total: number,
-  setCursor: (newCursor: number) => void,
-  setPageSize: React.Dispatch<PageSize>,
+type Props = {
+  cursor: number;
+  pageSize: PageSize;
+  total: number;
+  setCursor: (newCursor: number) => void;
+  setPageSize: Dispatch<PageSize>;
 };
 
 function PupperfieldPagination({
@@ -30,7 +30,7 @@ function PupperfieldPagination({
   total,
   setCursor,
   setPageSize
-}: Prop) {
+}: Props) {
   return (
     <>
       {total > 0 &&

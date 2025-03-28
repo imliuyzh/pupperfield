@@ -6,15 +6,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Dog } from "@/types/Dog";
+import type { Dog } from "@/types/Dog";
+import type { Dispatch } from "react";
 import { MapPin, Zap } from "react-feather";
 
-type Prop = {
-  match: Dog | null,
-  setMatch: React.Dispatch<Dog | null>,
+type Props = {
+  match: Dog | null;
+  setMatch: Dispatch<Dog | null>;
 };
 
-export default function MatchDialog({ match, setMatch }: Prop) {
+export default function MatchDialog({ match, setMatch }: Props) {
   const onOpenChange = (open: boolean) => {
     if (open === false) {
       setMatch(null);
@@ -24,6 +25,7 @@ export default function MatchDialog({ match, setMatch }: Prop) {
   if (match === null) {
     return <></>;
   }
+
   return (
     <Dialog onOpenChange={onOpenChange} open={true}>
       <DialogContent className="bg-black max-h-[600px] text-white max-w-[600px]">

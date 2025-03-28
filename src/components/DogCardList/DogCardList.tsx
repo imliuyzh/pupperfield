@@ -1,6 +1,6 @@
 import DogCard from "@/components/DogCard/DogCard";
 import type { Dog } from "@/types/Dog";
-import React from "react";
+import { memo } from "react";
 
 function _DogCardList({ dogs }: { dogs: Dog[] }) {
   return (
@@ -10,6 +10,6 @@ function _DogCardList({ dogs }: { dogs: Dog[] }) {
   );
 }
 
-const DogCardList = React.memo(_DogCardList);
+const DogCardList = memo(_DogCardList);
 
 export default DogCardList;
