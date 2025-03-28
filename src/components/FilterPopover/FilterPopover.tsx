@@ -66,11 +66,7 @@ export default function FilterPopover({
   setIsFormReset
 }: Props) {
   const [breedList, setBreedList] = useState<string[]>([]);
-  const breed = useSearchStateStore(state => state.breed),
-    maxAge = useSearchStateStore(state => state.maxAge),
-    minAge = useSearchStateStore(state => state.minAge),
-    zipCode = useSearchStateStore(state => state.zipCode),
-    setBreed = useSearchStateStore(state => state.setBreed),
+  const setBreed = useSearchStateStore(state => state.setBreed),
     setFrom = useSearchStateStore(state => state.setFrom),
     setMaxAge = useSearchStateStore(state => state.setMaxAge),
     setMinAge = useSearchStateStore(state => state.setMinAge),
