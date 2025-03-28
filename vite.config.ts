@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.Node_ENV === "production" ? "/pupperfield/" : "/",
+  base: "/pupperfield/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
