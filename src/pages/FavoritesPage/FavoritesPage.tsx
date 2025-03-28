@@ -39,7 +39,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="ml-[18vw] mr-[18vw]">
+    <div className="m-auto w-[64vw]">
       <Header showHome />
       <main>
         {Object.keys(favoriteDogs).length <= 0 &&

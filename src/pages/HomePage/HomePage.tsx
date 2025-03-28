@@ -103,8 +103,9 @@ export default function HomePage() {
             className="cursor-pointer"
             color="black"
             onClick={() => {
+              setResultList([]);
+              setTotalResult(0);
               resetSearchState();
-              setPageSize(25);
               setIsFormReset(true);
             }}
             size={18}

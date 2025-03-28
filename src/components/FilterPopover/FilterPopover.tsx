@@ -66,7 +66,11 @@ export default function FilterPopover({
   setIsFormReset
 }: Props) {
   const [breedList, setBreedList] = useState<string[]>([]);
-  const setBreed = useSearchStateStore(state => state.setBreed),
+  const breed = useSearchStateStore(state => state.breed),
+    maxAge = useSearchStateStore(state => state.maxAge),
+    minAge = useSearchStateStore(state => state.minAge),
+    zipCode = useSearchStateStore(state => state.zipCode),
+    setBreed = useSearchStateStore(state => state.setBreed),
     setFrom = useSearchStateStore(state => state.setFrom),
     setMaxAge = useSearchStateStore(state => state.setMaxAge),
     setMinAge = useSearchStateStore(state => state.setMinAge),
@@ -74,6 +78,12 @@ export default function FilterPopover({
 
   const form = useForm<z.infer<typeof filterSchema>>({
     resolver: zodResolver(filterSchema),
+    defaultValues: {
+      breed: breed ?? undefined,
+      maxAge: maxAge > -1 ? maxAge : undefined,
+      minAge: minAge > -1 ? minAge : undefined,
+      zipCode: zipCode ?? undefined,
+    }
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {

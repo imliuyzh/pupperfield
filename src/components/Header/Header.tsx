@@ -69,7 +69,7 @@ export default function Header(props: Props = {
             size={28}
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="rounded-none w-56">
+        <DropdownMenuContent className="rounded-none w-fit">
           <DropdownMenuLabel>
             <div className="flex gap-4 items-center m-4">
               <User color="white" size={40} />
