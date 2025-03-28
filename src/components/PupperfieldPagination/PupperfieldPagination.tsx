@@ -39,10 +39,10 @@ function PupperfieldPagination({
             <PaginationItem>
               <Select
                 defaultValue="25"
-                value={pageSize}
+                value={pageSize.toString()}
                 onValueChange={(value) => {
                   setCursor(0);
-                  setPageSize(value as PageSize);
+                  setPageSize(parseInt(value) as PageSize);
                 }}
               >
                 <SelectTrigger className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none cursor-pointer mr-8 shadow-none text-black text-sm">
@@ -58,22 +58,22 @@ function PupperfieldPagination({
                 </SelectContent>
               </Select>
             </PaginationItem>
-            {(cursor - parseInt(pageSize)) >= 0 && total > parseInt(pageSize) &&
+            {(cursor - pageSize) >= 0 && total > pageSize &&
               <PaginationItem>
                 <PaginationPrevious
                   className="border-1 border-black dark:hover:bg-transparent dark:hover:text-black hover:cursor-pointer mr-2 text-black"
                   onClick={() => {
-                    setCursor(cursor - parseInt(pageSize));
+                    setCursor(cursor - pageSize);
                   }}
                 />
               </PaginationItem>
             }
-            {(cursor + parseInt(pageSize)) <= total && total > parseInt(pageSize) &&
+            {(cursor + pageSize) <= total && total > pageSize &&
               <PaginationItem>
                 <PaginationNext
                   className="border-1 border-black dark:hover:bg-transparent dark:hover:text-black hover:cursor-pointer ml-2 text-black"
                   onClick={() => {
-                    setCursor(cursor + parseInt(pageSize));
+                    setCursor(cursor + pageSize);
                   }}
                 />
               </PaginationItem>

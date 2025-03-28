@@ -8,17 +8,17 @@ import { getDogs, searchDogs } from "@/services/DogService/DogService";
 import useSearchStateStore from "@/stores/SearchStateStore/SearchStateStore";
 import useUserStore from "@/stores/UserStore/UserStore";
 import type { Dog, DogInfoResponse, DogSearchRequest, DogSearchResponse } from "@/types/Dog";
-import type { PageSize } from "@/types/SearchState";
 import { useEffect, useState } from "react";
 import { Loader, RefreshCcw } from "react-feather";
 import { toast } from "sonner";
 import { Redirect } from "wouter";
 
 export default function HomePage() {
-  const [pageSize, setPageSize] = useState<PageSize>("25"),
-    [loading, setLoading] = useState<boolean>(false),
+  const [loading, setLoading] = useState<boolean>(false),
     [resultList, setResultList] = useState<Dog[]>([]),
-    [isFilterOpened, setIsFilterOpened] = useState<boolean>(false);
+    [totalResult, setTotalResult] = useState<number>(0),
+    [isFilterOpened, setIsFilterOpened] = useState<boolean>(false),
+    [isFormReset, setIsFormReset] = useState<boolean>(false);
 
   const email = useUserStore(state => state.email),
     name = useUserStore(state => state.name);
@@ -27,27 +27,27 @@ export default function HomePage() {
     from = useSearchStateStore(state => state.from),
     maxAge = useSearchStateStore(state => state.maxAge),
     minAge = useSearchStateStore(state => state.minAge),
-    size = useSearchStateStore(state => state.size),
+    pageSize = useSearchStateStore(state => state.size),
     sortField = useSearchStateStore(state => state.sortField),
     sortOrder = useSearchStateStore(state => state.sortOrder),
     zipCode = useSearchStateStore(state => state.zipCode),
     setFrom = useSearchStateStore(state => state.setFrom),
-    setResultSize = useSearchStateStore(state => state.setSize),
+    setPageSize = useSearchStateStore(state => state.setSize),
     resetSearchState = useSearchStateStore(state => state.resetSearchState);
 
   const createDogSearchRequest = (): DogSearchRequest => {
     const payload: DogSearchRequest = {
       from,
-      size: parseInt(pageSize),
+      size: pageSize,
       sort: `${sortField}:${sortOrder}`,
     };
     if (breed !== null && breed.length > 0) {
       payload.breeds = [breed];
     }
-    if (maxAge !== null && maxAge > -1) {
+    if (maxAge > -1) {
       payload.ageMax = maxAge;
     }
-    if (minAge !== null && minAge > -1) {
+    if (minAge > -1) {
       payload.ageMin = minAge;
     }
     if (zipCode !== null && zipCode.length > 0) {
@@ -64,7 +64,7 @@ export default function HomePage() {
           if ("error" in searchResponse) {
             throw searchResponse.error;
           }
-          setResultSize(searchResponse.result!.total);
+          setTotalResult(searchResponse.result!.total);
           return getDogs(searchResponse.result!.resultIds);
         })
         .then((dogInfoResponse: DogInfoResponse) => {
@@ -95,13 +95,17 @@ export default function HomePage() {
         <div className="flex gap-8 items-center">
           <FilterPopover
             isFilterOpened={isFilterOpened}
+            isFormReset={isFormReset}
             setIsFilterOpened={setIsFilterOpened}
+            setIsFormReset={setIsFormReset}
           />
           <RefreshCcw
             className="cursor-pointer"
             color="black"
             onClick={() => {
               resetSearchState();
+              setPageSize(25);
+              setIsFormReset(true);
             }}
             size={18}
           />
@@ -125,7 +129,7 @@ export default function HomePage() {
         <PupperfieldPagination
           cursor={from}
           pageSize={pageSize}
-          total={size}
+          total={totalResult}
           setCursor={setFrom}
           setPageSize={setPageSize}
         />
