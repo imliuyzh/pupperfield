@@ -19,6 +19,7 @@ export default function DogCard({ dog }: Props) {
   const favoriteDogs = useDogStore(state => state.favoriteDogs),
     addFavoriteDog = useDogStore(state => state.addFavoriteDog),
     removeFavoriteDog = useDogStore(state => state.removeFavoriteDog);
+
   return (
     <Card className="bg-transparent border-none break-inside-avoid gap-0 inline-block py-0 rounded-none shadow-none w-[300px]">
       <CardContent className="px-0">

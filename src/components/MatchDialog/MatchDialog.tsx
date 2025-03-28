@@ -29,17 +29,27 @@ export default function MatchDialog({ match, setMatch }: Props) {
   return (
     <Dialog onOpenChange={onOpenChange} open={true}>
       <DialogContent className="bg-black max-h-[600px] text-white max-w-[600px]">
-        <img alt={match.name} className="max-h-[400px] mt-6 max-w-[400px]" src={match.img} />
+        <img
+          alt={match.name}
+          className="max-h-[400px] mt-6 max-w-[400px]"
+          src={match.img}
+        />
         <DialogHeader className="mt-2">
           <DialogTitle>{match.name}</DialogTitle>
           <DialogDescription>
             <span className="block">{`${match.age.toString()} Year(s) Old`}</span>
             <div className="flex gap-4 mt-6">
-              <Badge className="bg-transparent border-none p-0 text-white" key={crypto.randomUUID()}>
+              <Badge
+                className="bg-transparent border-none p-0 text-white"
+                key={crypto.randomUUID()}
+              >
                 <Zap color="white" size={20} />
                 {match.breed}
               </Badge>
-              <Badge className="bg-transparent border-none p-0 text-white" key={crypto.randomUUID()}>
+              <Badge
+                className="bg-transparent border-none p-0 text-white"
+                key={crypto.randomUUID()}
+              >
                 <MapPin color="white" size={20} />
                 {match.zip_code}
               </Badge>

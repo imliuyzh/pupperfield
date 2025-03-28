@@ -106,7 +106,7 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
       })
       .catch((error: unknown) => {
         toast("Error", {
-          description: "We can't load the breed list, please try again.",
+          description: "We can't load the breed list, please try later.",
         });
         console.error(error);
       });
@@ -152,7 +152,12 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
                     </FormControl>
                     <SelectContent>
                       {breedList.map((breed) => (
-                        <SelectItem key={breed} value={breed}>{breed}</SelectItem>
+                        <SelectItem
+                          key={breed}
+                          value={breed}
+                        >
+                          {breed}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
