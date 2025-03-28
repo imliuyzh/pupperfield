@@ -17,8 +17,8 @@ import { toast } from "sonner";
 import { Link, useLocation } from "wouter";
 
 type Props = {
-  showFavorites?: boolean,
-  showHome?: boolean,
+  showFavorites?: boolean;
+  showHome?: boolean;
 };
 
 export default function Header(props: Props = {
@@ -30,7 +30,11 @@ export default function Header(props: Props = {
   const { email, name, resetUser } = useUserStore();
   const [, setLocation] = useLocation();
 
-  const handleLogOut = async () => {
+  /**
+   * Clear the user's state and log out.
+   * @return an empty promise
+   */
+  const handleLogOut = async (): Promise<void> => {
     const response = await logOut();
     if (response.ok) {
       resetSearchState();
@@ -49,7 +53,11 @@ export default function Header(props: Props = {
       <div >
         <Link to="/">
           <div className="bg-black flex h-[24rem] pl-[1rem] pr-[1rem] items-end w-[8rem]">
-            <img alt="Logo" className="bottom-[3rem] relative" src={logo} />
+            <img
+              alt="Logo"
+              className="bottom-[3rem] relative"
+              src={logo}
+            />
           </div>
         </Link>
       </div>
@@ -61,7 +69,7 @@ export default function Header(props: Props = {
             size={28}
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="rounded-none w-56">
+        <DropdownMenuContent className="rounded-none w-fit">
           <DropdownMenuLabel>
             <div className="flex gap-4 items-center m-4">
               <User color="white" size={40} />

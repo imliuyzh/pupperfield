@@ -1,36 +1,71 @@
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
 import { getDogBreeds } from "@/services/DogService/DogService";
 import useSearchStateStore from "@/stores/SearchStateStore/SearchStateStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import { type Dispatch, useEffect, useState } from "react";
 import { Filter } from "react-feather";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-type Prop = {
-  isFilterOpened: boolean,
-  setIsFilterOpened: React.Dispatch<boolean>,
+type Props = {
+  isFilterOpened: boolean;
+  isFormReset: boolean;
+  setIsFilterOpened: Dispatch<boolean>;
+  setIsFormReset: Dispatch<boolean>;
 };
 
-const filterSchema = z.object({
-  "breed": z.optional(z.string().min(1, { message: "breed needs to be at least 1 character long." })),
-  "maxAge": z.union([z.undefined(), z.coerce.number().nonnegative({ message: "maxAge needs to be a number greater than or equal to zero." })]),
-  "minAge": z.union([z.undefined(), z.coerce.number().nonnegative({ message: "minAge needs to be a number greater than or equal to zero." })]),
-  "zipCode": z.optional(z.string().min(1, { message: "zipCode needs to be at least 1 character long." })),
-});
+const filterSchema = z
+  .object({
+    "breed": z.union([
+      z.undefined(),
+      z.string().length(0),
+      z.string().min(1, { message: "Breed needs to be at least 1 character long." })
+    ]),
+    "maxAge": z.union([
+      z.undefined(),
+      z.string().length(0),
+      z.coerce.number().nonnegative({ message: "Max age needs to be a number greater than or equal to zero." })
+    ]),
+    "minAge": z.union([
+      z.undefined(),
+      z.string().length(0),
+      z.coerce.number().nonnegative({ message: "Min age needs to be a number greater than or equal to zero." })
+    ]),
+    "zipCode": z.union([
+      z.undefined(),
+      z.string().length(0),
+      z.string().min(1, { message: "Zip code needs to be at least 1 character long." })
+    ]),
+  });
 
-export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Prop) {
-  const [breedList, setBreedList] = React.useState<string[]>([]);
-
+export default function FilterPopover({
+  isFilterOpened,
+  isFormReset,
+  setIsFilterOpened,
+  setIsFormReset
+}: Props) {
+  const [breedList, setBreedList] = useState<string[]>([]);
   const breed = useSearchStateStore(state => state.breed),
     maxAge = useSearchStateStore(state => state.maxAge),
     minAge = useSearchStateStore(state => state.minAge),
@@ -43,48 +78,44 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
 
   const form = useForm<z.infer<typeof filterSchema>>({
     resolver: zodResolver(filterSchema),
-    values: {
-      "breed": breed ?? undefined,
-      "maxAge": maxAge ?? undefined,
-      "minAge": minAge ?? undefined,
-      "zipCode": zipCode ?? undefined,
-    },
+    defaultValues: {
+      breed: breed ?? undefined,
+      maxAge: maxAge > -1 ? maxAge : undefined,
+      minAge: minAge > -1 ? minAge : undefined,
+      zipCode: zipCode ?? undefined,
+    }
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
-    console.log(values);
     if (values.breed !== undefined && values.breed.length > 0) {
       setBreed(values.breed);
-      setFrom(0);
-    } else {
+    } else if (values.breed === "") {
       setBreed(null);
     }
-  
-    if (values.maxAge !== undefined && values.maxAge > -1) {
+
+    if (values.maxAge !== undefined && typeof values.maxAge !== "string" && values.maxAge > -1) {
       setMaxAge(values.maxAge);
-      setFrom(0);
-    } else {
-      setMaxAge(null);
+    } else if (values.maxAge === "") {
+      setMaxAge(-1);
     }
-  
-    if (values.minAge !== undefined && values.minAge > -1) {
+
+    if (values.minAge !== undefined && typeof values.minAge !== "string" && values.minAge > -1) {
       setMinAge(values.minAge);
-      setFrom(0);
-    } else {
-      setMinAge(null);
+    } else if (values.minAge === "") {
+      setMinAge(-1);
     }
 
     if (values.zipCode !== undefined && values.zipCode.length > 0) {
       setZipCode(values.zipCode);
-      setFrom(0);
-    } else {
+    } else if (values.zipCode === "") {
       setZipCode(null);
     }
-  
+
+    setFrom(0);
     setIsFilterOpened(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getDogBreeds()
       .then(response => {
         if (response.breeds === null) {
@@ -94,11 +125,18 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
       })
       .catch((error: unknown) => {
         toast("Error", {
-          description: "We can't load the breed list, please try again.",
+          description: "We can't load the breed list, please try later.",
         });
         console.error(error);
       });
   }, []);
+
+  useEffect(() => {
+    if (isFormReset) {
+      form.reset();
+      setIsFormReset(false);
+    }
+  }, [isFormReset]);
 
   return (
     <Popover
@@ -126,7 +164,7 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
             <FormField
               control={form.control}
               name="breed"
-              render={({ field: { onChange, ref, ...restField} }) => ( // eslint-disable-line
+              render={({ field: { onChange, ref, ...restField } }) => ( // eslint-disable-line
                 <FormItem>
                   <Select
                     disabled={breedList.length <= 0}
@@ -140,7 +178,12 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
                     </FormControl>
                     <SelectContent>
                       {breedList.map((breed) => (
-                        <SelectItem key={breed} value={breed}>{breed}</SelectItem>
+                        <SelectItem
+                          key={breed}
+                          value={breed}
+                        >
+                          {breed}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -158,6 +201,7 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
                       <Input
                         className="border-[#27272a] border-1 w-full"
                         placeholder="Min Age"
+                        type="number"
                         {...restField}
                       />
                     </FormControl>
@@ -174,6 +218,7 @@ export default function FilterPopover({ isFilterOpened, setIsFilterOpened }: Pro
                       <Input
                         className="border-[#27272a] border-1 w-full"
                         placeholder="Max Age"
+                        type="number"
                         {...restField}
                       />
                     </FormControl>

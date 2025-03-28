@@ -5,16 +5,18 @@ import MatchDialog from "@/components/MatchDialog/MatchDialog";
 import { Button } from "@/components/ui/button";
 import useDogStore from "@/stores/DogStore/DogStore";
 import useUserStore from "@/stores/UserStore/UserStore";
-import { Dog } from "@/types/Dog";
+import type { Dog } from "@/types/Dog";
 import { getDogMatch } from "@services/DogService/DogService";
-import React from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { Redirect } from "wouter";
 
 export default function FavoritesPage() {
-  const [match, setMatch] = React.useState<Dog | null>(null);
-  const email = useUserStore(state => state.email), name = useUserStore(state => state.name);
-  const favoriteDogs = useDogStore(state => state.favoriteDogs), resetFavoriteDogs = useDogStore(state => state.resetFavoriteDogs);
+  const [match, setMatch] = useState<Dog | null>(null);
+  const email = useUserStore(state => state.email),
+    name = useUserStore(state => state.name);
+  const favoriteDogs = useDogStore(state => state.favoriteDogs),
+    resetFavoriteDogs = useDogStore(state => state.resetFavoriteDogs);
 
   const getAMatch = async () => {
     const response = await getDogMatch(Object.keys(favoriteDogs));
@@ -25,7 +27,7 @@ export default function FavoritesPage() {
       });
     } else {
       if (response.match !== null) {
-        setMatch(favoriteDogs[response.match]); 
+        setMatch(favoriteDogs[response.match]);
       } else {
         console.error("A match could not be generated.");
       }
@@ -37,7 +39,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="ml-[18vw] mr-[18vw]">
+    <div className="m-auto w-[64vw]">
       <Header showHome />
       <main>
         {Object.keys(favoriteDogs).length <= 0 &&
