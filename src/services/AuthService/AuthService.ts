@@ -62,6 +62,10 @@ async function logOut(): Promise<AuthResponse> {
   }
 }
 
+/**
+ * Use this function to query the login endpoint once the cookie expired.
+ * @returns an object containing the status and error if it exists
+ */
 async function getNewToken(): Promise<AuthResponse> {
   const { email, name } = useUserStore.getState();
   if (email === null || name === null) {
