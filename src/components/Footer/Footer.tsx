@@ -7,6 +7,7 @@ export default function Footer(prop: { showLogo?: boolean }) {
     <footer className="flex items-end justify-between">
       <div className="flex gap-4 items-center pb-4 text-xs text-black">
         <a
+          aria-label="Link to project repository"
           href="https://github.com/imliuyzh/pupperfield"
           rel="noreferrer"
           target="_blank"
