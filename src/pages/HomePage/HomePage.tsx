@@ -1,5 +1,6 @@
 import DogCardList from "@/components/DogCardList/DogCardList";
 import FilterPopover from "@/components/FilterPopover/FilterPopover";
+import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import PupperfieldPagination from "@/components/PupperfieldPagination/PupperfieldPagination";
 import SortGroup from "@/components/SortGroup/SortGroup";
@@ -14,7 +15,7 @@ import { toast } from "sonner";
 import { Redirect } from "wouter";
 
 export default function HomePage() {
-  const [pageSize, setPageSize] = React.useState<PageSize>("25"), 
+  const [pageSize, setPageSize] = React.useState<PageSize>("25"),
     [loading, setLoading] = React.useState<boolean>(false),
     [resultList, setResultList] = React.useState<Dog[]>([]),
     [isFilterOpened, setIsFilterOpened] = React.useState<boolean>(false);
@@ -120,7 +121,7 @@ export default function HomePage() {
         }
         {loading == false && resultList.length > 0 && <DogCardList dogs={resultList} />}
       </main>
-      <div className="mb-[4rem] mt-20">
+      <div className="mt-20">
         <PupperfieldPagination
           cursor={from}
           pageSize={pageSize}
@@ -128,6 +129,9 @@ export default function HomePage() {
           setCursor={setFrom}
           setPageSize={setPageSize}
         />
+      </div>
+      <div className="mb-[2rem] mt-24">
+        <Footer />
       </div>
     </div>
   );
