@@ -1,3 +1,4 @@
+import request from "@/lib/serviceRequest";
 import useUserStore from "@/stores/UserStore/UserStore";
 import type { AuthResponse, LogInRequestBody } from "@/types/Auth";
 
@@ -36,25 +37,11 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
  * @returns an object containing the status and error if it exists
  */
 async function logOut(): Promise<AuthResponse> {
-  const url = "https://frontend-take-home-service.fetch.com/auth/logout",
-    options: RequestInit = {
+  try {
+    await request("https://frontend-take-home-service.fetch.com/auth/logout", {
       credentials: "include",
       method: "POST",
-    };
-
-  try {
-    let response = await fetch(new Request(url, options));
-    if (response.status === 401) {
-      const { ok, error } = await getNewToken();
-      if (ok) {
-        response = await fetch(new Request(url, options));
-      } else {
-        return { ok, error };
-      }
-    }
-    if (response.ok === false) {
-      throw await response.text();
-    }
+    })
     return { "ok": true };
   } catch (error: unknown) {
     return {

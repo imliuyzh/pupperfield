@@ -1,4 +1,4 @@
-import { getNewToken } from "@/services/AuthService/AuthService";
+import request from "@/lib/serviceRequest";
 import type {
   Dog,
   DogBreedsResponse,
@@ -14,22 +14,10 @@ import type {
  * @returns an object containing the dog breeds and an error if it exists
  */
 async function getDogBreeds(): Promise<DogBreedsResponse> {
-  const url = "https://frontend-take-home-service.fetch.com/dogs/breeds",
-    options: RequestInit = { credentials: "include" };
-
   try {
-    let response = await fetch(new Request(url, options));
-    if (response.status === 401) {
-      const { ok, error } = await getNewToken();
-      if (ok) {
-        response = await fetch(new Request(url, options));
-      } else {
-        throw error;
-      }
-    }
-    if (response.ok === false) {
-      throw await response.text();
-    }
+    const response = await request("https://frontend-take-home-service.fetch.com/dogs/breeds", {
+      credentials: "include"
+    });
     return { breeds: (await response.json()) as string[] };
   } catch (error: unknown) {
     return {
@@ -46,9 +34,6 @@ async function getDogBreeds(): Promise<DogBreedsResponse> {
  * @returns search results based on the filters provided
  */
 async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse> {
-  const url = "https://frontend-take-home-service.fetch.com/dogs/search?",
-    options: RequestInit = { credentials: "include" };
-
   try {
     const parameters = new URLSearchParams();
     for (const [key, value] of Object.entries(payload)) {
@@ -58,19 +43,9 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
         parameters.set(key, value.toString());
       }
     }
-
-    let response = await fetch(new Request(`${url}${parameters}`, options));
-    if (response.status === 401) {
-      const { ok, error } = await getNewToken();
-      if (ok) {
-        response = await fetch(new Request(`${url}${parameters}`, options));
-      } else {
-        throw error;
-      }
-    }
-    if (response.ok === false) {
-      throw await response.text();
-    }
+    const response = await request(`https://frontend-take-home-service.fetch.com/dogs/search?${parameters}`, {
+      credentials: "include"
+    });
     return { result: (await response.json()) as DogSearchResult };
   } catch (error: unknown) {
     return {
@@ -86,34 +61,18 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
  * @returns a list of dog information and an error if it exists
  */
 async function getDogs(ids: string[]): Promise<DogInfoResponse> {
-  const url = "https://frontend-take-home-service.fetch.com/dogs",
-    options: RequestInit = {
+  try {
+    if (ids.length > 100) {
+      throw new Error("More than 100 dog IDs received.");
+    }
+    const response = await request("https://frontend-take-home-service.fetch.com/dogs", {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-    };
-
-  try {
-    if (ids.length > 100) {
-      throw new Error("More than 100 dog IDs received.");
-    }
-
-    let response = await fetch(new Request(url, options));
-    if (response.status === 401) {
-      const { ok, error } = await getNewToken();
-      if (ok) {
-        response = await fetch(new Request(url, options));
-      } else {
-        throw error;
-      }
-    }
-
-    if (response.ok === false) {
-      throw await response.text();
-    }
+    });
     return { dogs: (await response.json()) as Dog[] };
   } catch (error: unknown) {
     return {
@@ -129,29 +88,15 @@ async function getDogs(ids: string[]): Promise<DogInfoResponse> {
  * @returns a dog ID for the match and an error if it exists
  */
 async function getDogMatch(ids: string[]): Promise<DogMatchResponse> {
-  const url = "https://frontend-take-home-service.fetch.com/dogs/match",
-    options: RequestInit = {
+  try {
+    const response = await request("https://frontend-take-home-service.fetch.com/dogs/match", {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-    };
-
-  try {
-    let response = await fetch(new Request(url, options));
-    if (response.status === 401) {
-      const { ok, error } = await getNewToken();
-      if (ok) {
-        response = await fetch(new Request(url, options));
-      } else {
-        throw error;
-      }
-    }
-    if (response.ok === false) {
-      throw await response.text();
-    }
+    });
     return (await response.json()) as DogMatchResponse;
   } catch (error: unknown) {
     return {
