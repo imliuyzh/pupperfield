@@ -103,8 +103,6 @@ export default function HomePage() {
             className="cursor-pointer"
             color="black"
             onClick={() => {
-              setResultList([]);
-              setTotalResult(0);
               resetSearchState();
               setIsFormReset(true);
             }}

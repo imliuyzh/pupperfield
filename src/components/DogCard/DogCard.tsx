@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import useDogStore from "@/stores/DogStore/DogStore";
 import type { Dog } from "@/types/Dog";
-import { MapPin, Star, Trash2, Zap } from "react-feather";
+import { MapPin, Star, Zap } from "react-feather";
 
 type Props = {
   dog: Dog;
@@ -30,31 +30,32 @@ export default function DogCard({ dog }: Props) {
           src={dog.img}
         />
       </CardContent>
-      <CardHeader className="bg-black flex items-center justify-between overflow-hidden py-6 text-ellipsis text-white">
-        {dog.id in favoriteDogs &&
-          <Trash2
-            className="hover:cursor-pointer"
-            color="white"
-            onClick={() => {
-              removeFavoriteDog(dog.id);
-            }}
-            size="24px"
-          />
-        }
-        {(dog.id in favoriteDogs) === false &&
-          <Star
-            className="hover:cursor-pointer"
-            color="white"
-            onClick={() => {
-              addFavoriteDog(dog);
-            }}
-            size="24px"
-          />
-        }
-        <div className="flex flex-col gap-2 items-end">
+      <CardHeader className="bg-black flex gap-6 items-center justify-between py-6 text-white">
+        <div>
+          {dog.id in favoriteDogs &&
+            <Star
+              className="fill-(--background) hover:cursor-pointer text-[var(--background)]"
+              onClick={() => {
+                removeFavoriteDog(dog.id);
+              }}
+              size={24}
+            />
+          }
+          {(dog.id in favoriteDogs) === false &&
+            <Star
+              className="hover:cursor-pointer"
+              color="white"
+              onClick={() => {
+                addFavoriteDog(dog);
+              }}
+              size={24}
+            />
+          }
+        </div>
+        <div className="flex flex-col gap-2 items-end min-w-0 text-right truncate">
           <CardTitle>{dog.name}</CardTitle>
           <CardDescription>
-            <span className="block text-right">
+            <span className="block">
               {`${dog.age.toString()} Year(s) Old`}
             </span>
             <div className="flex gap-4 mt-6">

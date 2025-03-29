@@ -48,12 +48,12 @@ function PupperfieldPagination({
                 <SelectTrigger className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none cursor-pointer mr-8 shadow-none text-black text-sm">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="rounded-none">
+                <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="25">25</SelectItem>
-                    <SelectItem value="50">50</SelectItem>
-                    <SelectItem value="75">75</SelectItem>
-                    <SelectItem value="100">100</SelectItem>
+                    <SelectItem value="25">25 Items</SelectItem>
+                    <SelectItem value="50">50 Items</SelectItem>
+                    <SelectItem value="75">75 Items</SelectItem>
+                    <SelectItem value="100">100 Items</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

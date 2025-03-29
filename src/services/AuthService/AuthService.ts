@@ -36,16 +36,18 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
  * @returns an object containing the status and error if it exists
  */
 async function logOut(): Promise<AuthResponse> {
-  try {
-    const request = new Request("https://frontend-take-home-service.fetch.com/auth/logout", {
+  const url = "https://frontend-take-home-service.fetch.com/auth/logout",
+    options: RequestInit = {
       credentials: "include",
       method: "POST",
-    });
-    let response = await fetch(request);
+    };
+
+  try {
+    let response = await fetch(new Request(url, options));
     if (response.status === 401) {
       const { ok, error } = await getNewToken();
       if (ok) {
-        response = await fetch(request);
+        response = await fetch(new Request(url, options));
       } else {
         return { ok, error };
       }
