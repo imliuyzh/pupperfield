@@ -1,6 +1,7 @@
 import type { PageSize, SearchState, SearchStateActions, SortField, SortOrder } from "@/types/SearchState";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
 const initialState: SearchState = {
   breed: null,
@@ -16,63 +17,36 @@ const initialState: SearchState = {
 const useSearchStateStore = create<SearchState & SearchStateActions>()(
   devtools(
     persist(
-      (set) => ({
+      immer((set) => ({
         ...initialState,
         setBreed: (breed: string | null) => {
-          set((state) => ({
-            ...state,
-            breed
-          }));
+          set({ breed });
         },
         setFrom: (from: number) => {
-          set((state) => ({
-            ...state,
-            from,
-          }));
+          set({ from });
         },
         setMaxAge: (age: number | null) => {
-          set((state) => ({
-            ...state,
-            maxAge: age,
-          }));
+          set({ maxAge: age });
         },
         setMinAge: (age: number | null) => {
-          set((state) => ({
-            ...state,
-            minAge: age,
-          }));
+          set({ minAge: age });
         },
         setSize: (size: PageSize) => {
-          set((state) => ({
-            ...state,
-            size,
-          }));
+          set({ size });
         },
         setSortField: (field: SortField) => {
-          set((state) => ({
-            ...state,
-            sortField: field,
-          }));
+          set({ sortField: field });
         },
         setSortOrder: (order: SortOrder) => {
-          set((state) => ({
-            ...state,
-            sortOrder: order,
-          }));
+          set({ sortOrder: order });
         },
         setZipCode: (zipCode: string | null) => {
-          set((state) => ({
-            ...state,
-            zipCode,
-          }));
+          set({ zipCode });
         },
         resetSearchState: () => {
-          set((state) => ({
-            ...state,
-            ...initialState,
-          }));
+          set({ ...initialState });
         },
-      }),
+      })),
       { name: "pupperfield-search-state" },
     )
   ),
