@@ -14,15 +14,15 @@ import type {
  * @returns an object containing the dog breeds and an error if it exists
  */
 async function getDogBreeds(): Promise<DogBreedsResponse> {
+  const url = "https://frontend-take-home-service.fetch.com/dogs/breeds",
+    options: RequestInit = { credentials: "include" };
+
   try {
-    const request = new Request("https://frontend-take-home-service.fetch.com/dogs/breeds", {
-      credentials: "include",
-    });
-    let response = await fetch(request);
+    let response = await fetch(new Request(url, options));
     if (response.status === 401) {
       const { ok, error } = await getNewToken();
       if (ok) {
-        response = await fetch(request);
+        response = await fetch(new Request(url, options));
       } else {
         throw error;
       }
@@ -46,6 +46,9 @@ async function getDogBreeds(): Promise<DogBreedsResponse> {
  * @returns search results based on the filters provided
  */
 async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse> {
+  const url = "https://frontend-take-home-service.fetch.com/dogs/search?",
+    options: RequestInit = { credentials: "include" };
+
   try {
     const parameters = new URLSearchParams();
     for (const [key, value] of Object.entries(payload)) {
@@ -56,14 +59,11 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
       }
     }
 
-    const request = new Request(`https://frontend-take-home-service.fetch.com/dogs/search?${parameters}`, {
-      credentials: "include",
-    });
-    let response = await fetch(request);
+    let response = await fetch(new Request(`${url}${parameters}`, options));
     if (response.status === 401) {
       const { ok, error } = await getNewToken();
       if (ok) {
-        response = await fetch(request);
+        response = await fetch(new Request(`${url}${parameters}`, options));
       } else {
         throw error;
       }
@@ -86,28 +86,31 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
  * @returns a list of dog information and an error if it exists
  */
 async function getDogs(ids: string[]): Promise<DogInfoResponse> {
-  try {
-    if (ids.length > 100) {
-      throw new Error("More than 100 dog IDs received.");
-    }
-
-    const request = new Request("https://frontend-take-home-service.fetch.com/dogs", {
+  const url = "https://frontend-take-home-service.fetch.com/dogs",
+    options: RequestInit = {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-    });
-    let response = await fetch(request);
+    };
+
+  try {
+    if (ids.length > 100) {
+      throw new Error("More than 100 dog IDs received.");
+    }
+
+    let response = await fetch(new Request(url, options));
     if (response.status === 401) {
       const { ok, error } = await getNewToken();
       if (ok) {
-        response = await fetch(request);
+        response = await fetch(new Request(url, options));
       } else {
         throw error;
       }
     }
+
     if (response.ok === false) {
       throw await response.text();
     }
@@ -126,20 +129,22 @@ async function getDogs(ids: string[]): Promise<DogInfoResponse> {
  * @returns a dog ID for the match and an error if it exists
  */
 async function getDogMatch(ids: string[]): Promise<DogMatchResponse> {
-  try {
-    const request = new Request("https://frontend-take-home-service.fetch.com/dogs/match", {
+  const url = "https://frontend-take-home-service.fetch.com/dogs/match",
+    options: RequestInit = {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-    });
-    let response = await fetch(request);
+    };
+
+  try {
+    let response = await fetch(new Request(url, options));
     if (response.status === 401) {
       const { ok, error } = await getNewToken();
       if (ok) {
-        response = await fetch(request);
+        response = await fetch(new Request(url, options));
       } else {
         throw error;
       }

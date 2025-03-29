@@ -4,7 +4,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logOut } from "@/services/AuthService/AuthService";
@@ -69,7 +68,7 @@ export default function Header(props: Props = {
             size={28}
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="rounded-none w-fit">
+        <DropdownMenuContent className="w-fit">
           <DropdownMenuLabel>
             <div className="flex gap-4 items-center m-4">
               <User color="white" size={40} />
@@ -79,7 +78,6 @@ export default function Header(props: Props = {
               </div>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-neutral-800" />
           <DropdownMenuGroup>
             {props.showHome &&
               <DropdownMenuItem>

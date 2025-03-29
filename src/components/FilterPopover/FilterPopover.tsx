@@ -23,7 +23,7 @@ import { getDogBreeds } from "@/services/DogService/DogService";
 import useSearchStateStore from "@/stores/SearchStateStore/SearchStateStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type Dispatch, useEffect, useState } from "react";
-import { Filter } from "react-feather";
+import { CheckSquare, Filter } from "react-feather";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -44,12 +44,12 @@ const filterSchema = z
     ]),
     "maxAge": z.union([
       z.undefined(),
-      z.string().length(0),
+      z.string().length(0, { message: "Max age needs to be a number or leave it empty." }),
       z.coerce.number().nonnegative({ message: "Max age needs to be a number greater than or equal to zero." })
     ]),
     "minAge": z.union([
       z.undefined(),
-      z.string().length(0),
+      z.string().length(0, { message: "Min age needs to be a number or leave it empty." }),
       z.coerce.number().nonnegative({ message: "Min age needs to be a number greater than or equal to zero." })
     ]),
     "zipCode": z.union([
@@ -237,6 +237,7 @@ export default function FilterPopover({
               className="bg-white text-black hover:cursor-pointer mt-2 rounded-none"
               type="submit"
             >
+              <CheckSquare color="black" size={24} />
               Apply
             </Button>
           </form>

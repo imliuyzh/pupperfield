@@ -29,7 +29,7 @@ export default function SortGroup() {
         <SelectTrigger className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none cursor-pointer shadow-none text-black text-sm">
           <SelectValue />
         </SelectTrigger>
-        <SelectContent className="rounded-none">
+        <SelectContent>
           <SelectGroup>
             <SelectItem value="age">Age</SelectItem>
             <SelectItem value="breed">Breed</SelectItem>
