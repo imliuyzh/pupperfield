@@ -44,10 +44,10 @@ export default function HomePage() {
     if (breed !== null && breed.length > 0) {
       payload.breeds = [breed];
     }
-    if (maxAge > -1) {
+    if (maxAge !== null && maxAge > -1) {
       payload.ageMax = maxAge;
     }
-    if (minAge > -1) {
+    if (minAge !== null && minAge > -1) {
       payload.ageMin = minAge;
     }
     if (zipCode !== null && zipCode.length > 0) {

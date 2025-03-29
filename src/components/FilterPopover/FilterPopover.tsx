@@ -66,41 +66,35 @@ export default function FilterPopover({
   setIsFormReset
 }: Props) {
   const [breedList, setBreedList] = useState<string[]>([]);
-  const setBreed = useSearchStateStore(state => state.setBreed),
+  const breed = useSearchStateStore(state => state.breed),
+    maxAge = useSearchStateStore(state => state.maxAge),
+    minAge = useSearchStateStore(state => state.minAge),
+    zipCode = useSearchStateStore(state => state.zipCode),
+    setBreed = useSearchStateStore(state => state.setBreed),
     setFrom = useSearchStateStore(state => state.setFrom),
     setMaxAge = useSearchStateStore(state => state.setMaxAge),
     setMinAge = useSearchStateStore(state => state.setMinAge),
     setZipCode = useSearchStateStore(state => state.setZipCode);
 
   const form = useForm<z.infer<typeof filterSchema>>({
+    defaultValues: {
+      breed: breed ?? undefined,
+      maxAge: maxAge ?? undefined,
+      minAge: minAge ?? undefined,
+      zipCode: zipCode ?? undefined,
+    },
     resolver: zodResolver(filterSchema),
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
-    if (values.breed !== undefined && values.breed.length > 0) {
-      setBreed(values.breed);
-    } else if (values.breed === "") {
-      setBreed(null);
-    }
-
-    if (values.maxAge !== undefined && typeof values.maxAge !== "string" && values.maxAge > -1) {
-      setMaxAge(values.maxAge);
-    } else if (values.maxAge === "") {
-      setMaxAge(-1);
-    }
-
-    if (values.minAge !== undefined && typeof values.minAge !== "string" && values.minAge > -1) {
-      setMinAge(values.minAge);
-    } else if (values.minAge === "") {
-      setMinAge(-1);
-    }
-
-    if (values.zipCode !== undefined && values.zipCode.length > 0) {
-      setZipCode(values.zipCode);
-    } else if (values.zipCode === "") {
-      setZipCode(null);
-    }
-
+    setBreed((values.breed !== undefined && values.breed.length > 0)
+      ? values.breed : null);
+    setMaxAge((values.maxAge !== undefined && typeof values.maxAge !== "string" && values.maxAge > -1)
+      ? values.maxAge : null);
+    setMinAge((values.minAge !== undefined && typeof values.minAge !== "string" && values.minAge > -1)
+      ? values.minAge : null);
+    setZipCode((values.zipCode !== undefined && values.zipCode.length > 0)
+      ? values.zipCode : null);
     setFrom(0);
     setIsFilterOpened(false);
   };
@@ -123,7 +117,12 @@ export default function FilterPopover({
 
   useEffect(() => {
     if (isFormReset) {
-      form.reset();
+      form.reset({
+        breed: undefined,
+        maxAge: undefined,
+        minAge: undefined,
+        zipCode: undefined,
+      });
       setIsFormReset(false);
     }
   }, [isFormReset]);

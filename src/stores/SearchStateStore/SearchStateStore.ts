@@ -5,8 +5,8 @@ import { devtools, persist } from "zustand/middleware";
 const initialState: SearchState = {
   breed: null,
   from: 0,
-  maxAge: -1,
-  minAge: -1,
+  maxAge: null,
+  minAge: null,
   size: 25,
   sortField: "breed",
   sortOrder: "asc",
@@ -30,13 +30,13 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
             from,
           }));
         },
-        setMaxAge: (age: number) => {
+        setMaxAge: (age: number | null) => {
           set((state) => ({
             ...state,
             maxAge: age,
           }));
         },
-        setMinAge: (age: number) => {
+        setMinAge: (age: number | null) => {
           set((state) => ({
             ...state,
             minAge: age,
