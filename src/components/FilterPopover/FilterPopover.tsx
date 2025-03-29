@@ -66,17 +66,28 @@ export default function FilterPopover({
   setIsFormReset
 }: Props) {
   const [breedList, setBreedList] = useState<string[]>([]);
-  const setBreed = useSearchStateStore(state => state.setBreed),
+  const breed = useSearchStateStore(state => state.breed),
+    maxAge = useSearchStateStore(state => state.maxAge),
+    minAge = useSearchStateStore(state => state.minAge),
+    zipCode = useSearchStateStore(state => state.zipCode),
+    setBreed = useSearchStateStore(state => state.setBreed),
     setFrom = useSearchStateStore(state => state.setFrom),
     setMaxAge = useSearchStateStore(state => state.setMaxAge),
     setMinAge = useSearchStateStore(state => state.setMinAge),
     setZipCode = useSearchStateStore(state => state.setZipCode);
 
   const form = useForm<z.infer<typeof filterSchema>>({
+    defaultValues: {
+      breed: breed ?? undefined,
+      maxAge: maxAge ?? undefined,
+      minAge: minAge ?? undefined,
+      zipCode: zipCode ?? undefined,
+    },
     resolver: zodResolver(filterSchema),
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
+    console.log(values);
     if (values.breed !== undefined && values.breed.length > 0) {
       setBreed(values.breed);
     } else if (values.breed === "") {
@@ -86,13 +97,13 @@ export default function FilterPopover({
     if (values.maxAge !== undefined && typeof values.maxAge !== "string" && values.maxAge > -1) {
       setMaxAge(values.maxAge);
     } else if (values.maxAge === "") {
-      setMaxAge(-1);
+      setMaxAge(null);
     }
 
     if (values.minAge !== undefined && typeof values.minAge !== "string" && values.minAge > -1) {
       setMinAge(values.minAge);
     } else if (values.minAge === "") {
-      setMinAge(-1);
+      setMinAge(null);
     }
 
     if (values.zipCode !== undefined && values.zipCode.length > 0) {
