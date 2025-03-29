@@ -87,30 +87,14 @@ export default function FilterPopover({
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
-    if (values.breed !== undefined && values.breed.length > 0) {
-      setBreed(values.breed);
-    } else if (values.breed === "") {
-      setBreed(null);
-    }
-
-    if (values.maxAge !== undefined && typeof values.maxAge !== "string" && values.maxAge > -1) {
-      setMaxAge(values.maxAge);
-    } else if (values.maxAge === "") {
-      setMaxAge(null);
-    }
-
-    if (values.minAge !== undefined && typeof values.minAge !== "string" && values.minAge > -1) {
-      setMinAge(values.minAge);
-    } else if (values.minAge === "") {
-      setMinAge(null);
-    }
-
-    if (values.zipCode !== undefined && values.zipCode.length > 0) {
-      setZipCode(values.zipCode);
-    } else if (values.zipCode === "") {
-      setZipCode(null);
-    }
-
+    setBreed((values.breed !== undefined && values.breed.length > 0)
+      ? values.breed : null);
+    setMaxAge((values.maxAge !== undefined && typeof values.maxAge !== "string" && values.maxAge > -1)
+      ? values.maxAge : null);
+    setMinAge((values.minAge !== undefined && typeof values.minAge !== "string" && values.minAge > -1)
+      ? values.minAge : null);
+    setZipCode((values.zipCode !== undefined && values.zipCode.length > 0)
+      ? values.zipCode : null);
     setFrom(0);
     setIsFilterOpened(false);
   };
