@@ -68,7 +68,7 @@ function PupperfieldPagination({
                 />
               </PaginationItem>
             }
-            {(cursor + pageSize) <= total && total > pageSize &&
+            {(cursor + pageSize) < total && total > pageSize &&
               <PaginationItem>
                 <PaginationNext
                   className="border-1 border-black dark:hover:bg-transparent dark:hover:text-black hover:cursor-pointer ml-2 text-black"
