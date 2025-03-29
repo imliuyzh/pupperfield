@@ -87,7 +87,6 @@ export default function FilterPopover({
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
-    console.log(values);
     if (values.breed !== undefined && values.breed.length > 0) {
       setBreed(values.breed);
     } else if (values.breed === "") {
@@ -134,7 +133,12 @@ export default function FilterPopover({
 
   useEffect(() => {
     if (isFormReset) {
-      form.reset();
+      form.reset({
+        breed: undefined,
+        maxAge: undefined,
+        minAge: undefined,
+        zipCode: undefined,
+      });
       setIsFormReset(false);
     }
   }, [isFormReset]);
