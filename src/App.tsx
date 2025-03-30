@@ -1,8 +1,9 @@
+import PrivateRoute from "@/components/PrivateRoute/PrivateRoute";
 import { ThemeProvider } from "@components/ThemeProvider/ThemeProvider";
 import LoginPage from "@pages/LoginPage/LoginPage";
 import { lazy, Suspense } from "react";
 import { Route, Router, Switch } from "wouter";
-import { useBrowserLocation } from "wouter/use-browser-location";
+import { useHashLocation } from "wouter/use-hash-location";
 
 const ErrorPage = lazy(() => import("@pages/ErrorPage/ErrorPage")),
   FavoritesPage = lazy(() => import("@pages/FavoritesPage/FavoritesPage")),
@@ -11,12 +12,16 @@ const ErrorPage = lazy(() => import("@pages/ErrorPage/ErrorPage")),
 export default function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Router base={import.meta.env.BASE_URL} hook={useBrowserLocation}>
+      <Router hook={useHashLocation}>
         <Suspense fallback={null}>
           <Switch>
-            <Route component={FavoritesPage} path="/favorites" />
+            <PrivateRoute>
+              <Route component={FavoritesPage} path="/favorites"/ >
+            </PrivateRoute>
             <Route component={LoginPage} path="/login" />
-            <Route component={HomePage} path="/" />
+            <PrivateRoute>
+              <Route component={HomePage} path="/" />
+            </PrivateRoute>
             <Route component={ErrorPage} path="*" />
           </Switch>
         </Suspense>
