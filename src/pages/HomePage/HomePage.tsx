@@ -11,7 +11,6 @@ import type { Dog, DogInfoResponse, DogSearchRequest, DogSearchResponse } from "
 import { useEffect, useState } from "react";
 import { Loader, RefreshCcw } from "react-feather";
 import { toast } from "sonner";
-import { Redirect } from "wouter";
 
 export default function HomePage() {
   const [loading, setLoading] = useState<boolean>(false),
@@ -82,10 +81,6 @@ export default function HomePage() {
         });
     }
   }, [breed, from, maxAge, minAge, pageSize, sortField, sortOrder, zipCode]);
-
-  if (email === null || name === null) {
-    return <Redirect replace to="/login" />;
-  }
 
   return (
     <div className="m-auto w-[64vw]">

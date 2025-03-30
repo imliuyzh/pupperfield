@@ -4,17 +4,13 @@ import Header from "@/components/Header/Header";
 import MatchDialog from "@/components/MatchDialog/MatchDialog";
 import { Button } from "@/components/ui/button";
 import useDogStore from "@/stores/DogStore/DogStore";
-import useUserStore from "@/stores/UserStore/UserStore";
 import type { Dog } from "@/types/Dog";
 import { getDogMatch } from "@services/DogService/DogService";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Redirect } from "wouter";
 
 export default function FavoritesPage() {
   const [match, setMatch] = useState<Dog | null>(null);
-  const email = useUserStore(state => state.email),
-    name = useUserStore(state => state.name);
   const favoriteDogs = useDogStore(state => state.favoriteDogs),
     resetFavoriteDogs = useDogStore(state => state.resetFavoriteDogs);
 
@@ -33,10 +29,6 @@ export default function FavoritesPage() {
       }
     }
   };
-
-  if (email === null || name === null) {
-    return <Redirect replace to="/login" />;
-  }
 
   return (
     <div className="m-auto w-[64vw]">
