@@ -1,11 +1,9 @@
-import logo from "@assets/images/logo.svg";
 import { GitHub } from "react-feather";
-import { Link } from "wouter";
 
-export default function Footer(prop: { showLogo?: boolean }) {
+export default function Footer() {
   return (
-    <footer className="flex items-end justify-between">
-      <div className="flex gap-4 items-center pb-4 text-xs text-black">
+    <footer className="text-xs text-black">
+      <div className="flex gap-4 items-center pb-4">
         <a
           aria-label="Link to project repository"
           href="https://github.com/imliuyzh/pupperfield"
@@ -16,13 +14,6 @@ export default function Footer(prop: { showLogo?: boolean }) {
         </a>
         <p>© 2025 Yizhen Liu</p>
       </div>
-      {prop.showLogo &&
-        <Link to="/">
-          <div className="bg-black flex mt-16 place-content-center relative right-0 size-[28vw]">
-            <img alt="Logo" src={logo} />
-          </div>
-        </Link>
-      }
     </footer>
   );
 }

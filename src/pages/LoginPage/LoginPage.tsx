@@ -1,7 +1,8 @@
-import Footer from "@/components/Footer/Footer";
 import useUserStore from "@/stores/UserStore/UserStore";
+import logo from "@assets/images/logo.svg";
+import Footer from "@components/Footer/Footer";
 import LoginForm from "@components/LoginForm/LoginForm";
-import { Redirect } from "wouter";
+import { Link, Redirect } from "wouter";
 
 export default function LoginPage() {
   const email = useUserStore(state => state.email), name = useUserStore(state => state.name);
@@ -16,12 +17,20 @@ export default function LoginPage() {
             .split(" ")
             .map((token, index) => <span className="block" key={index}>{token}</span>)}
         </h1>
-        <div className="relative right-12 top-16 w-sm">
-          <LoginForm />
+        <div className="flex flex-col items-end justify-between">
+          <div className="relative right-12 top-16 w-sm">
+            <LoginForm />
+          </div>
+          <Link to="/">
+            <div className="bg-black flex place-content-center relative right-0 size-[28vw]">
+              <img alt="Logo" src={logo} />
+            </div>
+          </Link>
         </div>
       </main>
-      <div className="md:lg:-mt-[18rem] pl-4 xl:2xl:-mt-[32rem]">
-        <Footer showLogo />
+
+      <div className="mt-10 pl-4 ">
+        <Footer />
       </div>
     </div>
   );
