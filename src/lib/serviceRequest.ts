@@ -10,7 +10,7 @@ import { LogInRequestBody } from "@/types/Auth";
 async function request(url: string, options: RequestInit): Promise<Response> {
   const { email, name } = useUserStore.getState();
   if (email === null || name === null) {
-    throw "User is not logged in.";
+    throw new Error("User is not logged in.");
   }
 
   let response = await fetch(new Request(url, options));
@@ -34,18 +34,14 @@ async function request(url: string, options: RequestInit): Promise<Response> {
  * @returns a promise that resolves to a response indicating the outcome of login attempt.
  */
 async function requestLogIn({ email, name }: LogInRequestBody): Promise<Response> {
-  try {
-    return await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
-      body: JSON.stringify({ email, name }),
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-  } catch (error: unknown) {
-    throw error;
-  }
+  return await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
+    body: JSON.stringify({ email, name }),
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  });
 }
 
 export {

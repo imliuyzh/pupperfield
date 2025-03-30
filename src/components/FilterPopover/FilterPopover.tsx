@@ -38,24 +38,20 @@ type Props = {
 const filterSchema = z
   .object({
     "breed": z.union([
-      z.undefined(),
       z.string().length(0),
-      z.string().min(1, { message: "Breed needs to be at least 1 character long." })
+      z.string().trim().min(1, { message: "Breed needs to be at least 1 character long." })
     ]),
     "maxAge": z.union([
-      z.undefined(),
       z.string().length(0, { message: "Max age needs to be a number or leave it empty." }),
       z.coerce.number().nonnegative({ message: "Max age needs to be a number greater than or equal to zero." })
     ]),
     "minAge": z.union([
-      z.undefined(),
       z.string().length(0, { message: "Min age needs to be a number or leave it empty." }),
       z.coerce.number().nonnegative({ message: "Min age needs to be a number greater than or equal to zero." })
     ]),
     "zipCode": z.union([
-      z.undefined(),
       z.string().length(0),
-      z.string().min(1, { message: "Zip code needs to be at least 1 character long." })
+      z.string().trim().min(1, { message: "Zip code needs to be at least 1 character long." })
     ]),
   });
 
@@ -78,23 +74,21 @@ export default function FilterPopover({
 
   const form = useForm<z.infer<typeof filterSchema>>({
     defaultValues: {
-      breed: breed ?? undefined,
-      maxAge: maxAge ?? undefined,
-      minAge: minAge ?? undefined,
-      zipCode: zipCode ?? undefined,
+      breed: breed ?? "",
+      maxAge: maxAge ?? "",
+      minAge: minAge ?? "",
+      zipCode: zipCode ?? "",
     },
     resolver: zodResolver(filterSchema),
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
-    setBreed((values.breed !== undefined && values.breed.length > 0)
-      ? values.breed : null);
-    setMaxAge((values.maxAge !== undefined && typeof values.maxAge !== "string" && values.maxAge > -1)
+    setBreed((values.breed.length > 0) ? values.breed : null);
+    setMaxAge((typeof values.maxAge !== "string" && values.maxAge > -1)
       ? values.maxAge : null);
-    setMinAge((values.minAge !== undefined && typeof values.minAge !== "string" && values.minAge > -1)
+    setMinAge((typeof values.minAge !== "string" && values.minAge > -1)
       ? values.minAge : null);
-    setZipCode((values.zipCode !== undefined && values.zipCode.length > 0)
-      ? values.zipCode : null);
+    setZipCode((values.zipCode.length > 0) ? values.zipCode : null);
     setFrom(0);
     setIsFilterOpened(false);
   };
@@ -118,10 +112,10 @@ export default function FilterPopover({
   useEffect(() => {
     if (isFormReset) {
       form.reset({
-        breed: undefined,
-        maxAge: undefined,
-        minAge: undefined,
-        zipCode: undefined,
+        breed: "",
+        maxAge: "",
+        minAge: "",
+        zipCode: "",
       });
       setIsFormReset(false);
     }
