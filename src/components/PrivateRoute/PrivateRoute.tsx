@@ -1,13 +1,8 @@
 import useUserStore from "@/stores/UserStore/UserStore";
-import type { ComponentType, LazyExoticComponent } from "react";
+import type { RouteProps } from "wouter";
 import { Redirect, Route } from "wouter";
 
-type Props = {
-  component: LazyExoticComponent<ComponentType>;
-  path: string;
-};
-
-export default function PrivateRoute({ component, path }: Props) {
+export default function PrivateRoute({ component, path }: RouteProps) {
   const email = useUserStore(state => state.email),
     name = useUserStore(state => state.name);
 
