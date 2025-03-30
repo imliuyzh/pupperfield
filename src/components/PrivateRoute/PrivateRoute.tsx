@@ -1,9 +1,17 @@
 import useUserStore from "@/stores/UserStore/UserStore";
-import type { PropsWithChildren } from "react";
-import { Redirect } from "wouter";
+import type { ComponentType, LazyExoticComponent } from "react";
+import { Redirect, Route } from "wouter";
 
-export default function PrivateRoute({ children }: PropsWithChildren) {
+type Props = {
+  component: LazyExoticComponent<ComponentType>;
+  path: string;
+};
+
+export default function PrivateRoute({ component, path }: Props) {
   const email = useUserStore(state => state.email),
     name = useUserStore(state => state.name);
-  return (email === null || name === null) ? <Redirect replace to="/login" /> : children;
+
+  return (email === null || name === null)
+    ? <Redirect replace to="/login" />
+    : <Route component={component} path={path} />;
 }

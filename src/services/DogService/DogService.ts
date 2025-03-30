@@ -1,4 +1,4 @@
-import request from "@/lib/serviceRequest";
+import { request } from "@/lib/serviceRequest";
 import type {
   Dog,
   DogBreedsResponse,

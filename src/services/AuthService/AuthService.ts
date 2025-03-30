@@ -1,5 +1,4 @@
-import request from "@/lib/serviceRequest";
-import useUserStore from "@/stores/UserStore/UserStore";
+import { request, requestLogIn } from "@/lib/serviceRequest";
 import type { AuthResponse, LogInRequestBody } from "@/types/Auth";
 
 /**
@@ -9,14 +8,7 @@ import type { AuthResponse, LogInRequestBody } from "@/types/Auth";
  */
 async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
   try {
-    const response = await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
-      body: JSON.stringify(body),
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+    const response = await requestLogIn(body);
     if (response.ok === false) {
       return {
         "error": await response.text(),
@@ -41,7 +33,7 @@ async function logOut(): Promise<AuthResponse> {
     await request("https://frontend-take-home-service.fetch.com/auth/logout", {
       credentials: "include",
       method: "POST",
-    })
+    });
     return { "ok": true };
   } catch (error: unknown) {
     return {
@@ -51,23 +43,7 @@ async function logOut(): Promise<AuthResponse> {
   }
 }
 
-/**
- * Use this function to query the login endpoint once the cookie expired.
- * @returns an object containing the status and error if it exists
- */
-async function getNewToken(): Promise<AuthResponse> {
-  const { email, name } = useUserStore.getState();
-  if (email === null || name === null) {
-    return {
-      "error": "User is not logged in.",
-      "ok": false
-    };
-  }
-  return await logIn({ email, name });
-}
-
 export {
-  getNewToken,
   logIn,
   logOut
 };

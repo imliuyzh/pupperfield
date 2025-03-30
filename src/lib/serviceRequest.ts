@@ -1,4 +1,5 @@
-import { getNewToken } from "@/services/AuthService/AuthService";
+import useUserStore from "@/stores/UserStore/UserStore";
+import { LogInRequestBody } from "@/types/Auth";
 
 /**
  * Make a request to the API and handle re-authentication automatically.
@@ -6,17 +7,48 @@ import { getNewToken } from "@/services/AuthService/AuthService";
  * @param options the options to pass to the fetch function
  * @returns the response from the server
  */
-export default async function request(url: string, options: RequestInit): Promise<Response> {
+async function request(url: string, options: RequestInit): Promise<Response> {
+  const { email, name } = useUserStore.getState();
+  if (email === null || name === null) {
+    throw "User is not logged in.";
+  }
+
   let response = await fetch(new Request(url, options));
   if (response.status === 401) {
-    const tokenResponse = await getNewToken();
-    if (tokenResponse.ok === false) {
-      throw tokenResponse.error;
+    const tokenResponse = await requestLogIn({ email, name });
+    if (tokenResponse.ok) {
+      response = await fetch(new Request(url, options));
     }
-    response = await fetch(new Request(url, options));
   }
   if (response.ok === false) {
     throw await response.text();
   }
   return response;
 }
+
+/**
+ * Attempts to log in a user by sending their email and name to the login endpoint.
+ * If the request is successful, an authentication cookie is included in the response headers.
+ * @param email user's email
+ * @param name user's name
+ * @returns a promise that resolves to a response indicating the outcome of login attempt.
+ */
+async function requestLogIn({ email, name }: LogInRequestBody): Promise<Response> {
+  try {
+    return await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
+      body: JSON.stringify({ email, name }),
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+  } catch (error: unknown) {
+    throw error;
+  }
+}
+
+export {
+  request,
+  requestLogIn
+};

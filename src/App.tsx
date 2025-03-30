@@ -15,13 +15,9 @@ export default function App() {
       <Router hook={useHashLocation}>
         <Suspense fallback={null}>
           <Switch>
-            <PrivateRoute>
-              <Route component={FavoritesPage} path="/favorites"/ >
-            </PrivateRoute>
+            <PrivateRoute component={FavoritesPage} path="/favorites" />
             <Route component={LoginPage} path="/login" />
-            <PrivateRoute>
-              <Route component={HomePage} path="/" />
-            </PrivateRoute>
+            <PrivateRoute component={HomePage} path="/" />
             <Route component={ErrorPage} path="*" />
           </Switch>
         </Suspense>
