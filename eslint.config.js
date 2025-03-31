@@ -1,6 +1,6 @@
 import eslint from "@eslint/js";
-import importPlugin from "eslint-plugin-import";
 import stylistic from "@stylistic/eslint-plugin";
+import importPlugin from "eslint-plugin-import";
 import reactPlugin from "eslint-plugin-react";
 import globals from "globals";
 import tseslint from "typescript-eslint";
