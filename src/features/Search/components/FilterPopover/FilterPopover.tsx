@@ -84,7 +84,7 @@ export default function FilterPopover({
   });
 
   const onSubmit = (values: z.infer<typeof filterSchema>) => {
-    setBreed((values.breed.length > 0) ? values.breed : null);
+    setBreed((values.breed.length > 0 && values.breed !== "all") ? values.breed : null);
     setMaxAge((typeof values.maxAge !== "string" && values.maxAge > -1)
       ? values.maxAge : -1);
     setMinAge((typeof values.minAge !== "string" && values.minAge > -1)
@@ -161,6 +161,7 @@ export default function FilterPopover({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                      <SelectItem key="all" value="all">All</SelectItem>
                       {breedList.map((breed) => (
                         <SelectItem
                           key={breed}
