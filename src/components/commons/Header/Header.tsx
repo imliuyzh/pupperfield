@@ -1,4 +1,3 @@
-import { logOut } from "@/api/AuthService";
 import logo from "@/assets/images/logo.svg";
 import {
   DropdownMenu,
@@ -9,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useUserStore from "@/stores/UserStore";
+import { logOut } from "@/utils/authenticate";
 import { Home, LogOut, Menu, Star, User } from "react-feather";
 import { toast } from "sonner";
 import { Link, useLocation } from "wouter";

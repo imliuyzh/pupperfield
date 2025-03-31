@@ -1,6 +1,6 @@
 import logo from "@/assets/images/logo.svg";
 import Footer from "@/components/commons/Footer/Footer";
-import LoginForm from "@/features/Auth/components/LoginForm/LoginForm";
+import LoginForm from "@/features/Login/components/LoginForm/LoginForm";
 import useUserStore from "@/stores/UserStore";
 import { Link, Redirect } from "wouter";
 
