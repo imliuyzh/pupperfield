@@ -50,7 +50,7 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
           set({ zipCode });
         },
         resetSearchState: () => {
-          set({ ...initialState });
+          set(initialState);
         },
       })),
       { name: "pupperfield-search-state" },
