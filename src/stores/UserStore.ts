@@ -14,7 +14,7 @@ const useUserStore = create<UserState & UserActions>()(
       immer((set) => ({
         ...initialState,
         resetUser: () => {
-          set({ ...initialState });
+          set(initialState);
         },
         setUser: (email: string, name: string) => {
           set({ email, name });
