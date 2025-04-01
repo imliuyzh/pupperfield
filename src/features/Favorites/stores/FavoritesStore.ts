@@ -23,13 +23,11 @@ const useFavoritesStore = create<FavoritesState & FavoritesActions>()(
         },
         removeFavoriteDog: (dogId: string) => {
           set((state) => {
-            const map = { ...state.favoriteDogs };
-            delete map[dogId];  // eslint-disable-line
-            return { favoriteDogs: map };
+            delete state.favoriteDogs[dogId];  // eslint-disable-line
           });
         },
         resetFavoriteDogs: () => {
-          set({ ...initialState });
+          set(initialState);
         },
       })),
       { name: "pupperfield-dog-state" },
