@@ -54,7 +54,12 @@ const useSearchStateStore = create<SearchState & SearchStateActions>()(
         },
       })),
       { name: "pupperfield-search-state" },
-    )
+    ),
+    {
+      enabled: import.meta.env.DEV,
+      name: "pupperfield-search-state",
+      store: "search",
+    },
   ),
 );
 

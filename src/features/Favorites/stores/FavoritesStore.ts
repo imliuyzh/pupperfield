@@ -31,7 +31,12 @@ const useFavoritesStore = create<FavoritesState & FavoritesActions>()(
         },
       })),
       { name: "pupperfield-dog-state" },
-    )
+    ),
+    {
+      enabled: import.meta.env.DEV,
+      name: "pupperfield-dog-state",
+      store: "favorites",
+    },
   ),
 );
 

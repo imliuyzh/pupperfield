@@ -21,7 +21,12 @@ const useUserStore = create<UserState & UserActions>()(
         },
       })),
       { name: "pupperfield-user-state" },
-    )
+    ),
+    {
+      enabled: import.meta.env.DEV,
+      name: "pupperfield-user-state",
+      store: "user",
+    },
   ),
 );
 
