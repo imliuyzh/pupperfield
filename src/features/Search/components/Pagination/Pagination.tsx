@@ -79,7 +79,7 @@ function Pagination({
                   <PopoverTrigger className="focus-visible:outline-none">
                     <Label
                       className="focus-visible:outline-none hover:cursor-pointer hover:decoration-dotted hover:underline pr-2 text-black"
-                      onClick={() => {
+                      onMouseOver={() => {
                         setIsFilterOpened(true);
                       }}
                     >
