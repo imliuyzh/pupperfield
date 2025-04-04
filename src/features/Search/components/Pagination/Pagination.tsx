@@ -83,7 +83,7 @@ function Pagination({
                         setIsFilterOpened(true);
                       }}
                     >
-                      {Math.ceil(cursor / pageSize) + 1} out of {Math.ceil(total / pageSize)}
+                      {Math.ceil(cursor / pageSize) + 1} (out of {Math.ceil(total / pageSize)})
                     </Label>
                   </PopoverTrigger>
                   <PopoverContent className="p-0 w-14">
@@ -102,6 +102,7 @@ function Pagination({
                           }
                         }
                       }}
+                      placeholder={(Math.ceil(cursor / pageSize) + 1).toString()}
                       type="number"
                     />
                   </PopoverContent>
