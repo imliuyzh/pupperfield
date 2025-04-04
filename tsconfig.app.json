@@ -25,12 +25,7 @@
     /* Resolve paths for editors */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
-      "@pages/*": ["src/features/*"],
-      "@services/*": ["./src/services/*"],
-      "@slices/*": ["src/slices/*"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]
