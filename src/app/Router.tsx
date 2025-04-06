@@ -20,7 +20,7 @@ function PrivateRoute({ component, path }: RouteProps) {
 
   if (email === null || name === null) {
     return (
-      <Route>
+      <Route path={path}>
         <Redirect replace to="/login" />
       </Route>
     );
