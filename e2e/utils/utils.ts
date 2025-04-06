@@ -3,7 +3,7 @@ import type { Page } from "@playwright/test";
 /**
  * Automates the login process by navigating to the login page,
  * filling in the user's name and email, and clicking the login button.
- * @param page Playwright's object used to interact with the browser.
+ * @param page a Playwright object used to interact with the browser
  */
 async function login(page: Page): Promise<void> {
   await page.goto("#/login");
