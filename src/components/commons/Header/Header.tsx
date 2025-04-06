@@ -80,7 +80,7 @@ export default function Header(props: Props = {
           <DropdownMenuGroup>
             {props.showHome &&
               <DropdownMenuItem>
-                <Link className="flex gap-2 items-center" to="/">
+                <Link className="flex gap-2 items-center" data-testid="home" to="/">
                   <Home color="white" />
                   Home
                 </Link>
@@ -88,7 +88,7 @@ export default function Header(props: Props = {
             }
             {props.showFavorites &&
               <DropdownMenuItem>
-                <Link className="flex gap-2 items-center" to="/favorites">
+                <Link className="flex gap-2 items-center" data-testid="favorites" to="/favorites">
                   <Star color="white" />
                   Favorites
                 </Link>

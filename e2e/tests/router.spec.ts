@@ -62,4 +62,22 @@ test.describe("routing", () => {
       await expect(page.getByText("Please mark more puppies as your favorites!")).toBeVisible();
     });
   });
+
+  test.describe("home/favorite page transition", () => {
+    test.beforeEach(async ({ page }) => {
+      await login(page);
+    });
+    test("should go to favorites page when the favorites link is clicked", async ({ page }) => {
+      await page.getByTestId("favorites").click();
+      await expect(page).toHaveURL(/favorites/);
+    });
+    test("should go to home page when the home link is clicked", async ({ page }) => {
+      await page.goto("#/favorites");
+      await page.getByTestId("menu").click();
+      await page.getByTestId("home").click();
+      await page.getByTestId("menu").waitFor();
+      await expect(page).not.toHaveURL(/favorites/);
+      await expect(page).toHaveURL(/\//);
+    });
+  });
 });
