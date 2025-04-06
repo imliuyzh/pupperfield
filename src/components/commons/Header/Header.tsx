@@ -97,6 +97,7 @@ export default function Header(props: Props = {
           </DropdownMenuGroup>
           <DropdownMenuItem
             className="hover:cursor-pointer"
+            data-testid="log-out"
             onClick={async () => await handleLogOut()}  // eslint-disable-line
           >
             <LogOut color="white" />
