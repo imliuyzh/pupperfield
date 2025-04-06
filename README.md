@@ -9,6 +9,8 @@ Before going through this section, please install Node.js v22 and npm v10. It is
 1. Enter the folder in the command line and run `npm i` to install the packages.
 2. Execute `npm run dev` and follow the instructions in the shell to run the application.
 
+## Testing
+
 ## Problem Statement
 
 Here at Fetch, we love dogs, and hope you do too! Your task is to build a website to help a dog-lover like yourself search through a database of shelter dogs, with the hope of finding a lucky dog a new home!
