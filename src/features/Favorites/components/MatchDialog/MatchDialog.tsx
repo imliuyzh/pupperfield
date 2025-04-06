@@ -35,7 +35,9 @@ export default function MatchDialog({ match, setMatch }: Props) {
             <DialogHeader className="mt-2">
               <DialogTitle>{match.name}</DialogTitle>
               <DialogDescription>
-                <span>{`${match.age.toString()} ${(match.age > 1) ? "Years" : "Year"}`}</span>
+                <span>
+                  {match.age.toString()} {(match.age > 1) ? "Years" : "Year"}
+                </span>
                 <span className="flex gap-4 mt-6">
                   <Badge
                     className="bg-transparent border-none p-0 text-white"

@@ -103,10 +103,10 @@ export default function FilterPopover({
         setBreedList(response.breeds);
       })
       .catch((error: unknown) => {
+        console.error(error);
         toast("Error", {
           description: "We can't load the breed list, please try later.",
         });
-        console.error(error);
       });
   }, []);
 

@@ -1,5 +1,5 @@
-import { SortField, SortOrder } from "@/features/Search/types/SearchState";
-import { Dog } from "@/types/Dog";
+import type { SortField, SortOrder } from "@/features/Search/types/SearchState";
+import type { Dog } from "@/types/Dog";
 
 export type DogBreedsResponse = {
   error?: unknown;

@@ -1,5 +1,5 @@
 import useUserStore from "@/stores/UserStore";
-import { LogInRequestBody } from "@/types/Auth";
+import type { LogInRequestBody } from "@/types/Auth";
 
 /**
  * Make a request to the API and handle re-authentication automatically.

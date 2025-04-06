@@ -45,6 +45,10 @@ export default function HomePage() {
     setPageSize = useSearchStateStore(state => state.setSize),
     resetSearchState = useSearchStateStore(state => state.resetSearchState);
 
+  /**
+   * Create a DogSearchRequest object based on the current search parameters.
+   * @returns a DogSearchRequest object
+   */
   const createDogSearchRequest = (): DogSearchRequest => {
     const payload: DogSearchRequest = {
       from,
@@ -128,7 +132,7 @@ export default function HomePage() {
           </div>
         }
         {loading == false && resultList.length <= 0 &&
-          <h1 className="flex place-content-center tagline text-black">
+          <h1 className="flex place-content-center tagline text-[min(192px,16rem)]/[max(152px,6rem)] text-black tracking-[-12px]">
             :-(
           </h1>
         }

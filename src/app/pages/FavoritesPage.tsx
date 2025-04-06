@@ -20,6 +20,9 @@ export default function FavoritesPage() {
   } = useFavoritesStore();
   const resetSearchState = useSearchStateStore(state => state.resetSearchState);
 
+  /**
+   * Request a match from the server and handle the response.
+   */
   const getAMatch = async () => {
     const response = await getDogMatch(Object.keys(favoriteDogs));
     if ("error" in response) {
@@ -32,6 +35,9 @@ export default function FavoritesPage() {
         setMatch(favoriteDogs[response.match]);
       } else {
         console.error("A match could not be generated.");
+        toast("Error", {
+          description: "A match could not be generated.",
+        });
       }
     }
   };

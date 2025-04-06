@@ -31,35 +31,33 @@ export default function Header(props: Props = {
 
   /**
    * Clear the user's state and log out.
-   * @return an empty promise
+   * @returns an empty promise
    */
   const handleLogOut = async (): Promise<void> => {
     const response = await logOut();
-    if (response.ok) {
+    if (response.ok === false) {
+      toast("Error", {
+        description: "We encountered an unknown error, please close this page, clear history, and restart your browser.",
+      });
+    } else {
       props.resetSearchState();
       props.resetFavoriteDogs();
       resetUser();
       setLocation("/login", { replace: true });
-    } else {
-      toast("Error", {
-        description: "We encountered an unknown error, please close this page, clear history, and restart your browser.",
-      });
     }
   };
 
   return (
     <header className="flex items-start justify-between">
-      <div >
-        <Link to="/">
-          <div className="bg-black flex h-[24rem] pl-[1rem] pr-[1rem] items-end w-[8rem]">
-            <img
-              alt="Logo"
-              className="bottom-[3rem] relative"
-              src={logo}
-            />
-          </div>
-        </Link>
-      </div>
+      <Link to="/">
+        <div className="bg-black flex h-[24rem] pl-[1rem] pr-[1rem] items-end w-[8rem]">
+          <img
+            alt="Logo"
+            className="bottom-[3rem] relative"
+            src={logo}
+          />
+        </div>
+      </Link>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Menu
@@ -98,9 +96,7 @@ export default function Header(props: Props = {
           </DropdownMenuGroup>
           <DropdownMenuItem
             className="hover:cursor-pointer"
-            onClick={async () => {  // eslint-disable-line
-              await handleLogOut();
-            }}
+            onClick={async () => await handleLogOut()}  // eslint-disable-line
           >
             <LogOut color="white" />
             Log Out

@@ -1,11 +1,11 @@
-import {
+import type {
   DogBreedsResponse,
   DogInfoResponse,
   DogSearchRequest,
   DogSearchResponse,
   DogSearchResult
 } from "@/features/Search/types/Search";
-import { Dog } from "@/types/Dog";
+import type { Dog } from "@/types/Dog";
 import { request } from "@/utils/serviceRequest";
 
 /**

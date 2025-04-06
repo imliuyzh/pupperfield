@@ -1,4 +1,4 @@
-import { DogMatchResponse } from "@/features/Favorites/types/Favorites";
+import type { DogMatchResponse } from "@/features/Favorites/types/Favorites";
 import { request } from "@/utils/serviceRequest";
 
 /**

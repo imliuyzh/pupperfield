@@ -59,7 +59,7 @@ export default function DogCard({
           <CardTitle>{dog.name}</CardTitle>
           <CardDescription>
             <span className="block">
-              {`${dog.age.toString()} ${(dog.age > 1) ? "Years" : "Year"}`}
+              {dog.age.toString()} {(dog.age > 1) ? "Years" : "Year"}
             </span>
             <div className="flex gap-4 mt-6">
               <Badge

@@ -1,4 +1,4 @@
-import { Dog } from "@/types/Dog";
+import type { Dog } from "@/types/Dog";
 
 export type FavoritesState = {
   favoriteDogs: Record<string, Dog>;

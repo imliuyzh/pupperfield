@@ -28,17 +28,17 @@ import { toast } from "sonner";
 type Props = {
   cursor: number;
   pageSize: PageSize;
-  total: number;
   setCursor: (newCursor: number) => void;
   setPageSize: Dispatch<PageSize>;
+  total: number;
 };
 
-function Pagination({
+export default function Pagination({
   cursor,
   pageSize,
-  total,
   setCursor,
-  setPageSize
+  setPageSize,
+  total,
 }: Props) {
   const [isFilterOpened, setIsFilterOpened] = useState<boolean>(false);
   return (
@@ -135,5 +135,3 @@ function Pagination({
     </>
   );
 }
-
-export default Pagination;

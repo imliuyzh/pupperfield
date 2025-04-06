@@ -1,4 +1,4 @@
-import { AuthResponse, LogInRequestBody } from "@/types/Auth";
+import type { AuthResponse, LogInRequestBody } from "@/types/Auth";
 import { request, requestLogIn } from "@/utils/serviceRequest";
 
 /**
