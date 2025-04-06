@@ -11,7 +11,7 @@ Before going through this section, please install Node.js v22, npm v10, and Dock
 3. Run `npm run test:init` to bring up the Playwright container and type `npm run test` or `npm run test:ui` to do the testing in console or UI mode.
    - Please wait after running `npm run test:init` until a WebSocket address shows up.
    - UI mode only supports Blink-based browsers like Chromium.
-   - Stop the Playwright container with `docker stop <container-id>` and it will clean up by itself. Find `container-id` by doing `docker ps -a`.
+   - Stop the Playwright container with `docker stop <container-id>` and it will clean up by itself. Find `<container-id>` by doing `docker ps -a`.
 
 ## Problem Statement
 
