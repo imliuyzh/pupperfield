@@ -61,6 +61,18 @@ test.describe("routing", () => {
       await page.goto("#/favorites");
       await expect(page.getByText("Please mark more puppies as your favorites!")).toBeVisible();
     });
+    test("should not be able to visit private routes when an user is logged out", async ({ page }) => {
+      await login(page);
+      await page.getByTestId("favorites").click();
+      await expect(page).toHaveURL(/favorites/);
+      await expect(page.getByText("Please mark more puppies as your favorites!")).toBeVisible();
+      await page.getByTestId("menu").click();
+      await page.getByTestId("log-out").click();
+      await expect(page).toHaveURL(/login/);
+      await expect(page.getByTestId("menu")).toBeHidden();
+      await page.goto("#/favorites");
+      await expect(page.getByTestId("menu")).toBeHidden();
+    });
   });
 
   test.describe("home/favorite page transition", () => {
