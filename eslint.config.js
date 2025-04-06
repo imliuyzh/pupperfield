@@ -1,6 +1,7 @@
 import eslint from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import importPlugin from "eslint-plugin-import";
+import playwrightPlugin from "eslint-plugin-playwright";
 import reactPlugin from "eslint-plugin-react";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -33,6 +34,10 @@ export default tseslint.config(
         "node": true,
       },
     },
+  },
+  {
+    ...playwrightPlugin.configs["flat/recommended"],
+    files: ["e2e/**"],
   },
   {
     languageOptions: {

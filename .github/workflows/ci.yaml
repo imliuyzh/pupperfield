@@ -1,7 +1,7 @@
 name: CI
 on: [push, workflow_call, workflow_dispatch]
 jobs:
-  CI:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,5 +16,14 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps --only-shell
+
       - name: Lint
         run: npm run lint
+
+      - name: Run type checks
+        run: npx tsc -p tsconfig.json --noEmit
+
+      - name: Run Playwright tests
+        run: npx playwright test

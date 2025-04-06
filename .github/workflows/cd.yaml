@@ -1,4 +1,4 @@
-name: Deploy
+name: CD
 
 on:
   push:
@@ -15,10 +15,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  CI:
+  ci:
     uses: ./.github/workflows/ci.yaml
 
-  CD:
+  cd:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
