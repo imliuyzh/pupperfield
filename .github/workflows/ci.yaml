@@ -28,8 +28,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Run type checks
+      - name: Run Type Checks
         run: npx tsc -p tsconfig.json --noEmit
 
-      - name: Run Playwright tests
+      - name: Run Playwright Tests
         run: npx playwright test
