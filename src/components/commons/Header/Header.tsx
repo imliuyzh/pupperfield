@@ -63,6 +63,7 @@ export default function Header(props: Props = {
           <Menu
             className="hover:cursor-pointer relative top-[4rem]"
             color="black"
+            data-testid="menu"
             size={28}
           />
         </DropdownMenuTrigger>
@@ -71,8 +72,8 @@ export default function Header(props: Props = {
             <div className="flex gap-4 items-center m-4">
               <User color="white" size={40} />
               <div className="flex flex-col gap-2">
-                <span className="block">{name}</span>
-                <span className="block text-xs">{email}</span>
+                <span className="block" data-testid="name">{name}</span>
+                <span className="block text-xs" data-testid="email">{email}</span>
               </div>
             </div>
           </DropdownMenuLabel>

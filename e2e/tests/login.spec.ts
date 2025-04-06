@@ -5,14 +5,11 @@ test.describe("login", () => {
   test.describe("valid input", () => {
     test("should go to home page when everything is ok", async ({ page }) => {
       await login(page);
-      await expect(page.locator("header")).toBeVisible();
+      await expect(page.getByTestId("menu")).toBeVisible();
     });
     test("should go to home page even when the name is unusual", async ({ page }) => {
-      await page.goto("#/login");
-      await page.getByRole("textbox", { name: "name" }).fill("#((*Y$#@YY##$Y#$|#%##$+$");
-      await page.getByRole("textbox", { name: "email" }).fill("randomname@email.com");
-      await page.getByRole("button", { name: "Log In" }).click();
-      await expect(page.locator("header")).toBeVisible();
+      await login(page, "#((*Y$#@YY##$Y#$|#%##$+$", "randomname@email.com");
+      await expect(page.getByTestId("menu")).toBeVisible();
     });
   });
 
