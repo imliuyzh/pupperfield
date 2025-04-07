@@ -46,7 +46,7 @@ export default function Pagination({
       {total > pageSize &&
         <ShadcnPagination>
           <PaginationContent className="flex justify-between w-full">
-            <PaginationItem>
+            <PaginationItem data-testid="page-size-selector">
               <Select
                 defaultValue="25"
                 onValueChange={(value) => {
@@ -60,16 +60,16 @@ export default function Pagination({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="25">25 Items</SelectItem>
-                    <SelectItem value="50">50 Items</SelectItem>
-                    <SelectItem value="75">75 Items</SelectItem>
-                    <SelectItem value="100">100 Items</SelectItem>
+                    <SelectItem data-testid="page-size-25" value="25">25 Items</SelectItem>
+                    <SelectItem data-testid="page-size-50" value="50">50 Items</SelectItem>
+                    <SelectItem data-testid="page-size-75" value="75">75 Items</SelectItem>
+                    <SelectItem data-testid="page-size-100" value="100">100 Items</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </PaginationItem>
             <div className="flex flex-row gap-2 items-center">
-              <PaginationItem>
+              <PaginationItem data-testid="page-selector">
                 <Popover
                   onOpenChange={(open) => {
                     setIsFilterOpened(open);
@@ -79,6 +79,7 @@ export default function Pagination({
                   <PopoverTrigger className="focus-visible:outline-none">
                     <Label
                       className="focus-visible:outline-none hover:cursor-pointer hover:decoration-dotted hover:underline pr-2 text-black"
+                      data-testid="page-selector-value"
                       onMouseOver={() => {
                         setIsFilterOpened(true);
                       }}
@@ -89,6 +90,7 @@ export default function Pagination({
                   <PopoverContent className="p-0 w-14">
                     <Input
                       className="text-white"
+                      data-testid="page-selector-input"
                       onKeyDown={(event) => {
                         if (event.key === "Enter") {
                           const value = parseInt(event.currentTarget.value);
@@ -96,9 +98,7 @@ export default function Pagination({
                             setCursor(pageSize * (value - 1));
                             setIsFilterOpened(false);
                           } else {
-                            toast("Error", {
-                              description: "Please provide a valid page number.",
-                            });
+                            toast.error("Please provide a valid page number.");
                           }
                         }
                       }}
@@ -112,6 +112,7 @@ export default function Pagination({
                 <PaginationItem>
                   <PaginationPrevious
                     className="border-1 border-black dark:hover:bg-transparent dark:hover:text-black hover:cursor-pointer mr-2 text-black"
+                    data-testid="previous-page"
                     onClick={() => {
                       setCursor(cursor - pageSize);
                     }}
@@ -122,6 +123,7 @@ export default function Pagination({
                 <PaginationItem>
                   <PaginationNext
                     className="border-1 border-black dark:hover:bg-transparent dark:hover:text-black hover:cursor-pointer ml-2 text-black"
+                    data-testid="next-page"
                     onClick={() => {
                       setCursor(cursor + pageSize);
                     }}
