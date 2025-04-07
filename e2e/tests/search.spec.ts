@@ -1,9 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { login } from "../utils/utils";
 
-// Must not parallelize to avoid loading issues
-test.describe.configure({ mode: "serial" });
-
 test.describe("search", () => {
   test.beforeEach(async ({ page }) => {
     await login(page);
@@ -289,11 +286,12 @@ test.describe("search", () => {
     expect(await page.getByTestId("sort-field").innerText())
       .toEqual(expect.stringContaining("Breed"));
     await expect(page.getByTestId("sort-desc")).toBeVisible();
-
-    expect(await page.getByTestId("page-size").innerText())
-      .toEqual(expect.stringContaining("25 Items"));
+    
+    await page.getByTestId("page-selector-value").waitFor();
     expect(await page.getByTestId("page-selector-value").innerText())
       .toEqual(expect.stringContaining("1 (out of 400)"));
+    expect(await page.getByTestId("page-size").innerText())
+      .toEqual(expect.stringContaining("25 Items"));
 
     await page.getByTestId("filter-button").click();
     expect(await page.getByTestId("breed").innerText())
