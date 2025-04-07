@@ -6,7 +6,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <Router />
-      <Toaster closeButton />
+      <Toaster />
     </ThemeProvider>
   );
 }
