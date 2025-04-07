@@ -96,9 +96,7 @@ export default function Pagination({
                             setCursor(pageSize * (value - 1));
                             setIsFilterOpened(false);
                           } else {
-                            toast("Error", {
-                              description: "Please provide a valid page number.",
-                            });
+                            toast.error("Please provide a valid page number.");
                           }
                         }
                       }}
