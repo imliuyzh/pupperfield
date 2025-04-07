@@ -8,11 +8,10 @@ Before going through this section, please install Node.js v22, npm v10, and Dock
 
 1. Enter the folder in the command line and run `npm i` to install the packages.
 2. Execute `npm run dev` and follow the instructions in the shell to start the application.
-3. Run `npm run test:init` to bring up the Playwright container and type `npm run test` or `npm run test:ui` to do the testing in console or UI mode.
-   - Please wait after running `npm run test:init` until a WebSocket address shows up.
+3. Run `npm run test:init` to bring up the Playwright container. When a WebSocket address shows up, type `npm run test` or `npm run test:ui` to do the testing in console or UI mode.
    - UI mode only supports Blink-based browsers like Chromium.
-   - Stop the Playwright container with `docker stop <container-id>` and it will clean up by itself. Find `<container-id>` by doing `docker ps -a`.
    - Note the tests can be flaky due to network connections to Fetch Rewards' API. Unfortunately, mocking a server is too laborious and therefore this project must rely on its API.
+4. Stop the Playwright container with `docker stop <container-id>` and it will clean up by itself. Find `<container-id>` by doing `docker ps -a`.
 
 ## Problem Statement
 
