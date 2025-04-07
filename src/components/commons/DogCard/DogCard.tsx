@@ -38,6 +38,7 @@ export default function DogCard({
           {dog.id in favoriteDogs &&
             <Star
               className="fill-(--background) hover:cursor-pointer text-[var(--background)]"
+              data-testid="remove-favorite-button"
               onClick={() => {
                 removeFavoriteDog(dog.id);
               }}
@@ -48,6 +49,7 @@ export default function DogCard({
             <Star
               className="hover:cursor-pointer"
               color="white"
+              data-testid="add-favorite-button"
               onClick={() => {
                 addFavoriteDog(dog);
               }}

@@ -69,6 +69,7 @@ test.describe("search", () => {
     test("filter by breed", async ({ page }) => {
       await page.getByTestId("breed-selector").click();
       for (const element of await page.locator("div[role=option]").all()) {
+        await element.waitFor();
         if (await element.innerText() === "American Staffordshire Terrier") {
           await element.dispatchEvent("click");
           break;
@@ -78,6 +79,7 @@ test.describe("search", () => {
       await page.getByTestId("dog-card-list").waitFor();
 
       for (const element of await page.locator("div[data-slot=card-description]").all()) {
+        await element.waitFor();
         const info = await element.innerText();
         expect(info.split("\n")[1]).toEqual(expect.stringContaining("American Staffordshire Terrier"));
       }
@@ -90,6 +92,7 @@ test.describe("search", () => {
       await page.getByTestId("dog-card-list").waitFor();
 
       for (const element of await page.locator("div[data-slot=card-description]").all()) {
+        await element.waitFor();
         const info = await element.innerText();
         expect(info.split("\n")[0]).toEqual(expect.stringContaining("3 Years"));
       }
@@ -103,6 +106,7 @@ test.describe("search", () => {
       await page.getByTestId("dog-card-list").waitFor();
 
       for (const element of await page.locator("div[data-slot=card-description]").all()) {
+        await element.waitFor();
         const info = await element.innerText();
         expect(info.split("\n")[0]).toEqual(expect.stringContaining("0 Year"));
       }
@@ -139,6 +143,7 @@ test.describe("search", () => {
       await page.getByTestId("dog-card-list").waitFor();
 
       for (const element of await page.locator("div[data-slot=card-description]").all()) {
+        await element.waitFor();
         const info = await element.innerText();
         expect(info.split("\n")[2]).toEqual(expect.stringContaining("22027"));
       }
@@ -263,6 +268,7 @@ test.describe("search", () => {
     await page.getByTestId("filter-button").click();
     await page.getByTestId("breed-selector").click();
     for (const element of await page.locator("div[role=option]").all()) {
+      await element.waitFor();
       if (await element.innerText() === "Lhasa") {
         await element.dispatchEvent("click");
         break;
