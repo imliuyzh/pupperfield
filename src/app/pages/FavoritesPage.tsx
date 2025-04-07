@@ -27,17 +27,13 @@ export default function FavoritesPage() {
     const response = await getDogMatch(Object.keys(favoriteDogs));
     if ("error" in response) {
       console.error(response.error);
-      toast("Error", {
-        description: "We encountered an unknown error, please try again.",
-      });
+      toast.error("We encountered an unknown error, please try again.");
     } else {
       if (response.match !== null) {
         setMatch(favoriteDogs[response.match]);
       } else {
         console.error("A match could not be generated.");
-        toast("Error", {
-          description: "A match could not be generated.",
-        });
+        toast.error("A match could not be generated.");
       }
     }
   };

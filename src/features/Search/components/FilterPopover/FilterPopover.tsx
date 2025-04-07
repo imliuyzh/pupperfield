@@ -104,9 +104,7 @@ export default function FilterPopover({
       })
       .catch((error: unknown) => {
         console.error(error);
-        toast("Error", {
-          description: "We can't load the breed list, please try later.",
-        });
+        toast.error("We can't load the breed list, please try later.");
       });
   }, []);
 

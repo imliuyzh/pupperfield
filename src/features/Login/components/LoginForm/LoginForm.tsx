@@ -43,9 +43,7 @@ export default function LoginForm() {
     const response = await logIn(values);
     if (response.ok === false) {
       console.error(response.error);
-      toast("Error", {
-        description: "We encountered an unknown error, please try again.",
-      });
+      toast.error("We encountered an unknown error, please try again.");
     } else {
       setUser(values.email, values.name);
       setLocation("/", { replace: true });

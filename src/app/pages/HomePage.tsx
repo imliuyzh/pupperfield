@@ -90,9 +90,7 @@ export default function HomePage() {
         })
         .catch((error: unknown) => {
           console.error(error);
-          toast("Error", {
-            description: "We can't load the search result, please try again.",
-          });
+          toast.error("We can't load the search result, please try again.");
         });
     }
   }, [breed, from, maxAge, minAge, pageSize, sortField, sortOrder, zipCode]);
