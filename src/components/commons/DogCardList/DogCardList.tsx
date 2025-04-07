@@ -16,7 +16,10 @@ function _DogCardList({
   removeFavoriteDog
 }: Props) {
   return (
-    <div className="flex flex-row flex-wrap gap-8 justify-between">
+    <div
+      className="flex flex-row flex-wrap gap-8 justify-between"
+      data-testid="dog-card-list"
+    >
       {dogs.map((dog: Dog) => {
         return (
           <DogCard

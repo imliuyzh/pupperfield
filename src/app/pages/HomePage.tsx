@@ -114,6 +114,7 @@ export default function HomePage() {
           <RefreshCcw
             className="cursor-pointer"
             color="black"
+            data-testid="reset-button"
             onClick={() => {
               resetSearchState();
               setIsFormReset(true);
@@ -130,7 +131,10 @@ export default function HomePage() {
           </div>
         }
         {loading == false && resultList.length <= 0 &&
-          <h1 className="flex place-content-center tagline text-[min(192px,16rem)]/[max(152px,6rem)] text-black tracking-[-12px]">
+          <h1
+            className="flex place-content-center tagline text-[min(192px,16rem)]/[max(152px,6rem)] text-black tracking-[-12px]"
+            data-testid="no-result"
+          >
             :-(
           </h1>
         }

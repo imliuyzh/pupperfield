@@ -63,6 +63,7 @@ test.describe("routing", () => {
     });
     test("should not be able to visit private routes when an user is logged out", async ({ page }) => {
       await login(page);
+      await page.getByTestId("menu").click();
       await page.getByTestId("favorites").click();
       await expect(page).toHaveURL(/favorites/);
       await expect(page.getByText("Please mark more puppies as your favorites!")).toBeVisible();
@@ -79,7 +80,9 @@ test.describe("routing", () => {
     test.beforeEach(async ({ page }) => {
       await login(page);
     });
+
     test("should go to favorites page when the favorites link is clicked", async ({ page }) => {
+      await page.getByTestId("menu").click();
       await page.getByTestId("favorites").click();
       await expect(page).toHaveURL(/favorites/);
     });

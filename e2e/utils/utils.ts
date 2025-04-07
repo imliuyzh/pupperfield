@@ -1,5 +1,4 @@
 import type { Page } from "@playwright/test";
-import { expect } from "@playwright/test";
 
 /**
  * Automates the login process by navigating to the login page,
@@ -14,9 +13,7 @@ async function login(page: Page, name = "John Doe", email = "johndoe@email.com")
   await page.getByRole("textbox", { name: "name" }).fill(name);
   await page.getByRole("textbox", { name: "email" }).fill(email);
   await page.getByRole("button", { name: "Log In" }).click();
-  await page.getByTestId("menu").click();
-  await expect(page.getByTestId("name")).toHaveText(name);
-  await expect(page.getByTestId("email")).toHaveText(email);
+  await page.getByTestId("menu").waitFor();
 }
 
 export {

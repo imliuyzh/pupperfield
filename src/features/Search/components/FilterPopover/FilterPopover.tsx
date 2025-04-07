@@ -131,6 +131,7 @@ export default function FilterPopover({
         <Filter
           className="hover:cursor-pointer"
           color="black"
+          data-testid="filter-button"
           onClick={() => {
             setIsFilterOpened(true);
           }}
@@ -154,8 +155,11 @@ export default function FilterPopover({
                     {...restField}
                   >
                     <FormControl>
-                      <SelectTrigger className="border-[#27272a] border-1 w-full">
-                        <SelectValue placeholder="Breed" />
+                      <SelectTrigger
+                        className="border-[#27272a] border-1 w-full"
+                        data-testid="breed-selector"
+                      >
+                        <SelectValue data-testid="breed" placeholder="Breed" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -183,6 +187,7 @@ export default function FilterPopover({
                     <FormControl>
                       <Input
                         className="border-[#27272a] border-1 w-full"
+                        data-testid="min-age-input"
                         placeholder="Min Age"
                         type="number"
                         {...restField}
@@ -200,6 +205,7 @@ export default function FilterPopover({
                     <FormControl>
                       <Input
                         className="border-[#27272a] border-1 w-full"
+                        data-testid="max-age-input"
                         placeholder="Max Age"
                         type="number"
                         {...restField}
@@ -218,6 +224,7 @@ export default function FilterPopover({
                   <FormControl>
                     <Input
                       className="border-[#27272a] border-1 w-full"
+                      data-testid="zip-code-input"
                       placeholder="Zip Code"
                       {...restField}
                     />
@@ -228,6 +235,7 @@ export default function FilterPopover({
             />
             <Button
               className="bg-white text-black hover:cursor-pointer mt-2 rounded-none"
+              data-testid="apply-filter-button"
               type="submit"
             >
               <CheckSquare color="black" size={24} />

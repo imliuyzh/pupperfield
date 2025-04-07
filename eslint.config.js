@@ -38,6 +38,9 @@ export default tseslint.config(
   {
     ...playwrightPlugin.configs["flat/recommended"],
     files: ["e2e/**"],
+    rules: {
+      "no-conditional-in-test": "off",
+    }
   },
   {
     languageOptions: {

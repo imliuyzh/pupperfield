@@ -20,6 +20,7 @@ export default defineConfig({
     },
   ],
   testDir: "./e2e",
+  timeout: 10000,
   tsconfig: "./e2e/tsconfig.test.json",
   reporter: [["html", { open: "never" }]],
   /* Retry on CI only */

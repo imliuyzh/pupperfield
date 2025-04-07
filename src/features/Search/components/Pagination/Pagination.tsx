@@ -56,7 +56,7 @@ export default function Pagination({
                 value={pageSize.toString()}
               >
                 <SelectTrigger className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none cursor-pointer mr-8 shadow-none text-black text-sm">
-                  <SelectValue />
+                  <SelectValue data-testid="page-size" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>

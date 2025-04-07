@@ -27,14 +27,17 @@ export default function SortGroup() {
           setFrom(0);
         }}
       >
-        <SelectTrigger className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none cursor-pointer shadow-none text-black text-sm">
-          <SelectValue />
+        <SelectTrigger
+          className="[&_svg:not([class*='text-'])]:text-black bg-transparent! border-none cursor-pointer shadow-none text-black text-sm"
+          data-testid="sort-selector"
+        >
+          <SelectValue data-testid="sort-field" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="age">Age</SelectItem>
-            <SelectItem value="breed">Breed</SelectItem>
-            <SelectItem value="name">Name</SelectItem>
+            <SelectItem data-testid="sort-age" value="age">Age</SelectItem>
+            <SelectItem data-testid="sort-breed" value="breed">Breed</SelectItem>
+            <SelectItem data-testid="sort-name" value="name">Name</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -42,6 +45,7 @@ export default function SortGroup() {
         <ArrowUp
           className="hover:cursor-pointer"
           color="black"
+          data-testid="sort-desc"
           onClick={() => {
             setSortOrder("desc");
             setFrom(0);
@@ -53,6 +57,7 @@ export default function SortGroup() {
         <ArrowDown
           className="hover:cursor-pointer"
           color="black"
+          data-testid="sort-asc"
           onClick={() => {
             setSortOrder("asc");
             setFrom(0);
