@@ -70,10 +70,6 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: transparent;
-
-  ::selection {
-    @apply bg-black text-[var(--background)];
-  }
 }
 
 @theme inline {
@@ -136,6 +132,6 @@
 
 @layer components {
   .tagline {
-    @apply font-sans font-thin pb-8 pt-8 text-[min(192px,16rem)]/[max(152px,6rem)] tracking-[-12px];
+    @apply font-sans font-thin pb-8 pt-8;
   }
 }

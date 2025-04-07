@@ -1,5 +1,7 @@
 import eslint from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
+import importPlugin from "eslint-plugin-import";
+import playwrightPlugin from "eslint-plugin-playwright";
 import reactPlugin from "eslint-plugin-react";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -15,10 +17,30 @@ export default tseslint.config(
       "dist",
       "eslint.config.js",
       "node_modules",
-      "src/components/ThemeProvider/*",
+      "src/app/Provider.tsx",
       "src/components/ui/*",
       "src/lib/utils.ts",
     ]
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript
+    ],
+    settings: {
+      "import/resolver": {
+        "typescript": true,
+        "node": true,
+      },
+    },
+  },
+  {
+    ...playwrightPlugin.configs["flat/recommended"],
+    files: ["e2e/**"],
+    rules: {
+      "no-conditional-in-test": "off",
+    }
   },
   {
     languageOptions: {
@@ -46,11 +68,45 @@ export default tseslint.config(
   {
     rules: {
       "@stylistic/indent": ["error", 2],
+      "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": "error",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
+      "import/no-cycle": "error",
+      "import/no-restricted-paths": ["error", {
+        "zones": [
+          {
+            target: "./src/features/Auth",
+            from: "./src/features",
+            except: ["./Auth"],
+          },
+          {
+            target: "./src/features/Favorites",
+            from: "./src/features",
+            except: ["./Favorites"],
+          },
+          {
+            target: "./src/features/Search",
+            from: "./src/features",
+            except: ["./Search"],
+          },
+          {
+            target: "./src/features",
+            from: "./src/app",
+          },
+          {
+            target: [
+              "./src/components",
+              "./src/lib",
+              "./src/types",
+              "./src/utils",
+            ],
+            from: ["./src/app", "./src/features"],
+          },
+        ]
+      }],
       "react/react-in-jsx-scope": "off",
     },
   },
