@@ -1,6 +1,11 @@
 name: CI
 
-on: [push, workflow_call, workflow_dispatch]
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_call:
+  workflow_dispatch:
 
 concurrency:
   cancel-in-progress: true

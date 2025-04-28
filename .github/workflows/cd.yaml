@@ -16,9 +16,6 @@ concurrency:
 
 jobs:
   ci:
-    concurrency:
-      cancel-in-progress: true
-      group: ci-${{ github.ref }}
     uses: ./.github/workflows/ci.yaml
 
   cd:
