@@ -61,7 +61,7 @@ export default function FavoritesPage() {
             />
             <div className="flex gap-4 mt-32">
               <Button
-                className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-[var(--background)] rounded-none"
+                className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-(--background) rounded-none"
                 onClick={async () => await getAMatch()} // eslint-disable-line
               >
                 Match

@@ -186,7 +186,7 @@ export default function FilterPopover({
                   <FormItem>
                     <FormControl>
                       <Input
-                        className="border-[#27272a] border-1 w-full"
+                        className="border-[#27272a] border-1 selection:bg-black selection:text-(--background) w-full"
                         data-testid="min-age-input"
                         placeholder="Min Age"
                         type="number"
@@ -204,7 +204,7 @@ export default function FilterPopover({
                   <FormItem>
                     <FormControl>
                       <Input
-                        className="border-[#27272a] border-1 w-full"
+                        className="border-[#27272a] border-1 selection:bg-black selection:text-(--background) w-full"
                         data-testid="max-age-input"
                         placeholder="Max Age"
                         type="number"
@@ -223,7 +223,7 @@ export default function FilterPopover({
                 <FormItem>
                   <FormControl>
                     <Input
-                      className="border-[#27272a] border-1 w-full"
+                      className="border-[#27272a] border-1 selection:bg-black selection:text-(--background) w-full"
                       data-testid="zip-code-input"
                       placeholder="Zip Code"
                       {...restField}

@@ -37,7 +37,7 @@ export default function DogCard({
         <div>
           {dog.id in favoriteDogs &&
             <Star
-              className="fill-(--background) hover:cursor-pointer text-[var(--background)]"
+              className="fill-(--background) hover:cursor-pointer text-(--background)"
               data-testid="remove-favorite-button"
               onClick={() => {
                 removeFavoriteDog(dog.id);
