@@ -9,7 +9,7 @@ Before going through this section, please install Node.js v22, npm v10, and Dock
 1. Enter the folder in the command line and run `npm i` to install the packages.
 2. Execute `npm run dev` and follow the instructions in the shell to start the application.
 
-To execute the test suite:
+### Testing
 
 1. Run `npm run test:init` to bring up the Playwright container. When a WebSocket address shows up, type `npm run test` or `npm run test:ui` to do the testing in console or UI mode.
    - UI mode only supports Blink-based browsers like Chromium.
