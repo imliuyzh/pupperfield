@@ -9,9 +9,9 @@ export default function ErrorPage() {
         <span className="block text-[min(144px,8rem)]/[max(120px,5rem)] tracking-[-12px] w-3/4">
           Sorry, something is wrong. Do you want to
         </span>
-        <div className="font-bold text-[min(192px,18rem)]/[max(144px,12rem)] text-[var(--background)] tracking-[-20px]">
+        <div className="font-bold text-[min(192px,18rem)]/[max(144px,12rem)] text-(--background) tracking-[-20px]">
           <Link to="/">
-            <span className="hover:bg-black hover:text-[var(--background)] transition-all uppercase">go back?</span>
+            <span className="hover:bg-black hover:text-(--background) transition-all uppercase">go back?</span>
           </Link>
         </div>
       </h1>

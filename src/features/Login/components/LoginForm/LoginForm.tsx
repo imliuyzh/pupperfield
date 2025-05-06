@@ -63,7 +63,7 @@ export default function LoginForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="border-2 dark:bg-transparent dark:aria-invalid:border-black dark:aria-invalid:ring-transparent focus-visible:border-2 focus-visible:border-black placeholder:text-black rounded-none text-black"
+                  className="border-2 dark:bg-transparent dark:aria-invalid:border-black dark:aria-invalid:ring-transparent focus-visible:border-2 focus-visible:border-black placeholder:text-black rounded-none selection:bg-black selection:text-(--background) text-black"
                   placeholder="Name" {...restField}
                 />
               </FormControl>
@@ -78,7 +78,7 @@ export default function LoginForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="border-2 dark:bg-transparent dark:aria-invalid:border-black dark:aria-invalid:ring-transparent focus-visible:border-2 focus-visible:border-black placeholder:text-black rounded-none text-black"
+                  className="border-2 dark:bg-transparent dark:aria-invalid:border-black dark:aria-invalid:ring-transparent focus-visible:border-2 focus-visible:border-black placeholder:text-black selection:bg-black selection:text-(--background) rounded-none text-black"
                   placeholder="Email" {...restField}
                 />
               </FormControl>
@@ -87,7 +87,7 @@ export default function LoginForm() {
           )}
         />
         <Button
-          className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-[var(--background)] rounded-none"
+          className="bg-black text-white hover:bg-black hover:cursor-pointer hover:text-(--background) rounded-none"
           type="submit"
         >
           <LogIn color="white" />
