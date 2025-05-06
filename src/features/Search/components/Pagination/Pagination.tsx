@@ -84,12 +84,14 @@ export default function Pagination({
                         setIsFilterOpened(true);
                       }}
                     >
-                      {Math.ceil(cursor / pageSize) + 1} (out of {Math.ceil(total / pageSize)})
+                      <span className="font-normal">
+                        {Math.ceil(cursor / pageSize) + 1} (out of {Math.ceil(total / pageSize)})
+                      </span>
                     </Label>
                   </PopoverTrigger>
                   <PopoverContent className="p-0 w-14">
                     <Input
-                      className="text-white"
+                      className="selection:bg-black selection:text-(--background) text-white"
                       data-testid="page-selector-input"
                       onKeyDown={(event) => {
                         if (event.key === "Enter") {
