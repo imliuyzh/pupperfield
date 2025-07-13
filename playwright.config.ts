@@ -32,6 +32,7 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
+    /* npm run dev if using official API. */
     command: "NODE_ENV=other vite --mode staging",
     url: baseURL,
   },
