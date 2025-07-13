@@ -13,6 +13,8 @@ Please install Node.js v22 with npm v10/v11. It is recommended to follow https:/
 
 Please install Docker by following https://docs.docker.com/engine/install/.
 
+If you want to test integration with [pupperfield-service](https://github.com/imliuyzh/pupperfield-service), please follow the instruction in `.env` before moving on.
+
 1. Run `npm run test:init` to bring up the Playwright container. When a WebSocket address shows up, type `npm run test` or `npm run test:ui` to do the testing in console or UI mode.
    - UI mode only supports Blink-based browsers like Chromium.
    - Note the tests can be flaky due to direct usage of Fetch Rewards' API. Unfortunately, mocking a server is too laborious and therefore this project must rely on its API.

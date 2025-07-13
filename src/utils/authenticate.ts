@@ -30,7 +30,7 @@ async function logIn(body: LogInRequestBody): Promise<AuthResponse> {
  */
 async function logOut(): Promise<AuthResponse> {
   try {
-    await request("https://frontend-take-home-service.fetch.com/auth/logout", {
+    await request(`${import.meta.env.VITE_PUPPERFIELD_API_BASE_URL as string}/auth/logout`, {
       credentials: "include",
       method: "POST",
     });

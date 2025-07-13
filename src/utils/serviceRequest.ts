@@ -34,7 +34,7 @@ async function request(url: string, options: RequestInit): Promise<Response> {
  * @returns a promise that resolves to a response indicating the outcome of login attempt.
  */
 async function requestLogIn({ email, name }: LogInRequestBody): Promise<Response> {
-  return await fetch("https://frontend-take-home-service.fetch.com/auth/login", {
+  return await fetch(`${import.meta.env.VITE_PUPPERFIELD_API_BASE_URL as string}/auth/login`, {
     body: JSON.stringify({ email, name }),
     credentials: "include",
     headers: {
