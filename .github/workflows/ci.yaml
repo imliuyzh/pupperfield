@@ -51,6 +51,7 @@ jobs:
       
       - name: Start pupperfield-service
         run: |
+          ls -a
           cd pupperfield-service
           ./mvnw spring-boot:start
 
