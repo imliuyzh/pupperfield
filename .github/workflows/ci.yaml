@@ -52,7 +52,7 @@ jobs:
       - name: Start pupperfield-service
         run: |
           cd pupperfield-service
-          mvn clean install spring-boot:start -Dmaven.test.skip=true
+          ./mvnw clean install spring-boot:start -Dmaven.test.skip=true
 
       - name: Run Playwright Tests
         run: npx playwright test
@@ -60,4 +60,4 @@ jobs:
       - name: Stop pupperfield-service
         run: |
           cd pupperfield-service
-          mvn spring-boot:stop
+          ./mvnw spring-boot:stop
