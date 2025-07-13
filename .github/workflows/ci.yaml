@@ -51,8 +51,8 @@ jobs:
       
       - name: Start pupperfield-service
         run: |
-          ls -a
           cd pupperfield-service
+          ls -a
           ./mvnw spring-boot:start
 
       - name: Run Playwright Tests
