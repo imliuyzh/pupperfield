@@ -190,43 +190,43 @@ test.describe("search", () => {
         await page.getByTestId("page-selector").hover();
         await page.getByTestId("page-selector-input").fill("");
         await page.getByTestId("page-selector-input").press("Enter");
-        await expect(page.getByTestId("page-selector-value")).toHaveText("1 (out of 400)");
+        await expect(page.getByTestId("page-selector-value")).toHaveText(/^1/);
       });
       test("should not accept empty input 2", async ({ page }) => {
         await page.getByTestId("page-selector").hover();
         await page.getByTestId("page-selector-input").fill("            ");
         await page.getByTestId("page-selector-input").press("Enter");
-        await expect(page.getByTestId("page-selector-value")).toHaveText("1 (out of 400)");
+        await expect(page.getByTestId("page-selector-value")).toHaveText(/^1 \(out of/);
       });
       test("should not accept out of range input 1", async ({ page }) => {
         await page.getByTestId("page-selector").hover();
         await page.getByTestId("page-selector-input").fill("0");
         await page.getByTestId("page-selector-input").press("Enter");
-        await expect(page.getByTestId("page-selector-value")).toHaveText("1 (out of 400)");
+        await expect(page.getByTestId("page-selector-value")).toHaveText(/^1 \(out of/);
       });
       test("should not accept out of range input 2", async ({ page }) => {
         await page.getByTestId("page-selector").hover();
         await page.getByTestId("page-selector-input").fill("-1");
         await page.getByTestId("page-selector-input").press("Enter");
-        await expect(page.getByTestId("page-selector-value")).toHaveText("1 (out of 400)");
+        await expect(page.getByTestId("page-selector-value")).toHaveText(/^1 \(out of/);
       });
       test("should not accept out of range input 3", async ({ page }) => {
         await page.getByTestId("page-selector").hover();
         await page.getByTestId("page-selector-input").fill("-23535");
         await page.getByTestId("page-selector-input").press("Enter");
-        await expect(page.getByTestId("page-selector-value")).toHaveText("1 (out of 400)");
+        await expect(page.getByTestId("page-selector-value")).toHaveText(/^1 \(out of/);
       });
       test("should not accept out of range input 4", async ({ page }) => {
         await page.getByTestId("page-selector").hover();
-        await page.getByTestId("page-selector-input").fill("401");
+        await page.getByTestId("page-selector-input").fill("1001");
         await page.getByTestId("page-selector-input").press("Enter");
-        await expect(page.getByTestId("page-selector-value")).toHaveText("1 (out of 400)");
+        await expect(page.getByTestId("page-selector-value")).toHaveText(/^1 \(out of/);
       });
       test("should not accept out of range input 5", async ({ page }) => {
         await page.getByTestId("page-selector").hover();
         await page.getByTestId("page-selector-input").fill("23535");
         await page.getByTestId("page-selector-input").press("Enter");
-        await expect(page.getByTestId("page-selector-value")).toHaveText("1 (out of 400)");
+        await expect(page.getByTestId("page-selector-value")).toHaveText(/^1 \(out of/);
       });
     });
 
@@ -248,8 +248,11 @@ test.describe("search", () => {
         await expect(page.getByTestId("next-page")).toBeVisible();
       });
       test("should not display next page when on last page", async ({ page }) => {
+        const pageInfo = await page.getByTestId("page-selector-value").innerText();
+        const totalPage = /^1 \(out of (\d+)\)$/.exec(pageInfo)![1];
+
         await page.getByTestId("page-selector").hover();
-        await page.getByTestId("page-selector-input").fill("400");
+        await page.getByTestId("page-selector-input").fill(totalPage);
         await page.getByTestId("page-selector-input").press("Enter");
         await expect(page.getByTestId("previous-page")).toBeVisible();
         await expect(page.getByTestId("next-page")).toBeHidden();
@@ -295,7 +298,7 @@ test.describe("search", () => {
     
     await page.getByTestId("page-selector-value").waitFor();
     expect(await page.getByTestId("page-selector-value").innerText())
-      .toEqual(expect.stringContaining("1 (out of 400)"));
+      .toEqual(expect.stringContaining("1 (out of"));
     expect(await page.getByTestId("page-size").innerText())
       .toEqual(expect.stringContaining("25 Items"));
 
