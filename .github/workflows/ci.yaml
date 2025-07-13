@@ -55,8 +55,7 @@ jobs:
           mvn clean install spring-boot:start
 
       - name: Run Playwright Tests
-        run: |
-          npx playwright test
+        run: npx playwright test
 
       - name: Stop pupperfield-service
         run: |
