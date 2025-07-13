@@ -8,7 +8,7 @@ import { request } from "@/utils/serviceRequest";
  */
 async function getDogMatch(ids: string[]): Promise<DogMatchResponse> {
   try {
-    const response = await request("https://frontend-take-home-service.fetch.com/dogs/match", {
+    const response = await request(`${import.meta.env.VITE_PUPPERFIELD_API_BASE_URL as string}/dogs/match`, {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {

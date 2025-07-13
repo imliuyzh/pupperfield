@@ -14,7 +14,7 @@ import { request } from "@/utils/serviceRequest";
  */
 async function getDogBreeds(): Promise<DogBreedsResponse> {
   try {
-    const response = await request("https://frontend-take-home-service.fetch.com/dogs/breeds", {
+    const response = await request(`${import.meta.env.VITE_PUPPERFIELD_API_BASE_URL as string}/dogs/breeds`, {
       credentials: "include"
     });
     return { breeds: (await response.json()) as string[] };
@@ -42,7 +42,7 @@ async function searchDogs(payload: DogSearchRequest): Promise<DogSearchResponse>
         parameters.set(key, value.toString());
       }
     }
-    const response = await request(`https://frontend-take-home-service.fetch.com/dogs/search?${parameters}`, {
+    const response = await request(`${import.meta.env.VITE_PUPPERFIELD_API_BASE_URL as string}/dogs/search?${parameters}`, {
       credentials: "include"
     });
     return { result: (await response.json()) as DogSearchResult };
@@ -64,7 +64,7 @@ async function getDogs(ids: string[]): Promise<DogInfoResponse> {
     if (ids.length > 100) {
       throw new Error("More than 100 dog IDs received.");
     }
-    const response = await request("https://frontend-take-home-service.fetch.com/dogs", {
+    const response = await request(`${import.meta.env.VITE_PUPPERFIELD_API_BASE_URL as string}/dogs`, {
       body: JSON.stringify(ids),
       credentials: "include",
       headers: {
