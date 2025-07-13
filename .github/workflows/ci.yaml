@@ -15,14 +15,27 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Front End Repository
         uses: actions/checkout@v4
+
+      - name: Checkout Back End Repository
+        uses: actions/checkout@v4
+        with:
+          path: pupperfield-service
+          repository: imliuyzh/pupperfield-service 
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           check-latest: true
           node-version: lts/jod
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          check-latest: true
+          distribution: temurin
+          java-version: 21
 
       - name: Install Dependencies
         run: npm ci
@@ -35,6 +48,18 @@ jobs:
 
       - name: Run Type Checks
         run: npx tsc -p tsconfig.json --noEmit
+      
+      - name: Start pupperfield-service
+        run: |
+          cd pupperfield-service
+          ./mvnw spring-boot:start
 
       - name: Run Playwright Tests
-        run: npx playwright test
+        run: |
+          cd ..
+          npx playwright test
+
+      - name: Stop pupperfield-service
+        run: |
+          cd pupperfield-service
+          ./mvnw spring-boot:stop
