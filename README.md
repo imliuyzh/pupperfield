@@ -11,9 +11,9 @@ Please install Node.js v22 with npm v10/v11. It is recommended to follow https:/
 
 ### Testing
 
-Please install Docker by following https://docs.docker.com/engine/install/.
+You will need Docker installed by following https://docs.docker.com/engine/install/.
 
-If you want to test integration with [pupperfield-service](https://github.com/imliuyzh/pupperfield-service), please follow the instruction in `.env` before moving on.
+If you want to test integration with [pupperfield-service](https://github.com/imliuyzh/pupperfield-service), please finish starting it first before moving on.
 
 1. Run `npm run test:init` to bring up the Playwright container. When a WebSocket address shows up, type `npm run test` or `npm run test:ui` to do the testing in console or UI mode.
    - UI mode only supports Blink-based browsers like Chromium.

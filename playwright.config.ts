@@ -32,7 +32,7 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run dev",
+    command: "NODE_ENV=other vite --mode staging",
     url: baseURL,
   },
   /* Opt out of parallel tests on CI. */
