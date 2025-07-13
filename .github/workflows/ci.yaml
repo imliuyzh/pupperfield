@@ -52,15 +52,14 @@ jobs:
       - name: Start pupperfield-service
         run: |
           cd pupperfield-service
-          ls -a
-          ./mvnw spring-boot:start
+          mvn clean install
+          mvn spring-boot:start
 
       - name: Run Playwright Tests
         run: |
-          cd ..
           npx playwright test
 
       - name: Stop pupperfield-service
         run: |
           cd pupperfield-service
-          ./mvnw spring-boot:stop
+          mvn spring-boot:stop
