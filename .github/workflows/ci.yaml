@@ -52,8 +52,7 @@ jobs:
       - name: Start pupperfield-service
         run: |
           cd pupperfield-service
-          mvn clean install
-          mvn spring-boot:start
+          mvn clean install spring-boot:start
 
       - name: Run Playwright Tests
         run: |
