@@ -15,10 +15,10 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Front End Repository
+      - name: Check out Front End Repository
         uses: actions/checkout@v4
 
-      - name: Checkout Back End Repository
+      - name: Check out Back End Repository
         uses: actions/checkout@v4
         with:
           path: pupperfield-service
