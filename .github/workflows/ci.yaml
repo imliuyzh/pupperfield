@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           check-latest: true
-          distribution: temurin
+          distribution: liberica
           java-version: 21
 
       - name: Install Dependencies
