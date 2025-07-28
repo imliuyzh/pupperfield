@@ -33,7 +33,7 @@ export default defineConfig({
   },
   webServer: {
     /* npm run dev if using official API. */
-    command: "NODE_ENV=other vite --mode staging",
+    command: "npm run dev:local",
     url: baseURL,
   },
   /* Opt out of parallel tests on CI. */
