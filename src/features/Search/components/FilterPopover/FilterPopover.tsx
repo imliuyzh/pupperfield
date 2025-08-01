@@ -27,7 +27,7 @@ import { useEffect, useState } from "react";
 import { CheckSquare, Filter } from "react-feather";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import * as z from "zod";
 
 type Props = {
   isFilterOpened: boolean;
@@ -39,19 +39,19 @@ type Props = {
 const filterSchema = z.object({
   "breed": z.union([
     z.string().length(0),
-    z.string().trim().min(1, { message: "Breed needs to be at least 1 character long." })
+    z.string().trim().min(1, { error: "Breed needs to be at least 1 character long." })
   ]),
   "maxAge": z.union([
-    z.string().length(0, { message: "Max age needs to be a number or leave it empty." }),
-    z.coerce.number().nonnegative({ message: "Max age needs to be a number greater than or equal to zero." })
+    z.string().length(0, { error: "Max age needs to be a number or leave it empty." }),
+    z.coerce.number<string | number>().nonnegative({ error: "Max age needs to be a number greater than or equal to zero." })
   ]),
   "minAge": z.union([
-    z.string().length(0, { message: "Min age needs to be a number or leave it empty." }),
-    z.coerce.number().nonnegative({ message: "Min age needs to be a number greater than or equal to zero." })
+    z.string().length(0, { error: "Min age needs to be a number or leave it empty." }),
+    z.coerce.number<string | number>().nonnegative({ error: "Min age needs to be a number greater than or equal to zero." })
   ]),
   "zipCode": z.union([
     z.string().length(0),
-    z.string().trim().min(1, { message: "Zip code needs to be at least 1 character long." })
+    z.string().trim().min(1, { error: "Zip code needs to be at least 1 character long." })
   ]),
 });
 

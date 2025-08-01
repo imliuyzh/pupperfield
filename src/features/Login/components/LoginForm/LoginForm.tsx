@@ -15,11 +15,11 @@ import { LogIn } from "react-feather";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
-import { z } from "zod";
+import * as z from "zod";
 
 const formSchema = z.object({
-  email: z.string().email({ message: "Email is required." }),
-  name: z.string().trim().min(1, { message: "Name is required." }),
+  email: z.email({ error: "Email is required." }),
+  name: z.string().trim().min(1, { error: "Name is required." }),
 });
 
 export default function LoginForm() {
