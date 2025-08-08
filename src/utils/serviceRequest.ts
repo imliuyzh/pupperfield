@@ -21,7 +21,7 @@ async function request(url: string, options: RequestInit): Promise<Response> {
     }
   }
   if (response.ok === false) {
-    throw await response.text();
+    throw new Error(await response.text());
   }
   return response;
 }
