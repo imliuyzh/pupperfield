@@ -36,6 +36,7 @@ export default function Header(props: Props = {
   const handleLogOut = async (): Promise<void> => {
     const response = await logOut();
     if (response.ok === false) {
+      console.error(response.error);
       toast.error("We encountered an unknown error, please close this page, clear history, and restart your browser.");
     } else {
       props.resetSearchState();
