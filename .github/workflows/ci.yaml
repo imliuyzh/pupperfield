@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Front End Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Check out Back End Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: pupperfield-service
           repository: imliuyzh/pupperfield-service 
@@ -31,7 +31,7 @@ jobs:
           node-version: lts/jod
 
       - name: Install Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           check-latest: true
           distribution: liberica
