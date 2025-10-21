@@ -2,6 +2,8 @@ import logo from "@/assets/images/logo.svg";
 import Footer from "@/components/commons/Footer/Footer";
 import LoginForm from "@/features/Login/components/LoginForm/LoginForm";
 import useUserStore from "@/stores/UserStore";
+import { useEffect } from "react";
+import { toast } from "sonner";
 import { Link, Redirect } from "wouter";
 
 export default function LoginPage() {
@@ -11,6 +13,12 @@ export default function LoginPage() {
   if (email !== null && name !== null) {
     return <Redirect replace to="/" />;
   }
+
+  useEffect(() => {
+    toast.info("Please enable third-party cookies to use Pupperfield.", {
+      id: "cookie-warning"
+    });
+  }, []);
 
   return (
     <div className="min-w-[1024px] min-h-[768px]">
