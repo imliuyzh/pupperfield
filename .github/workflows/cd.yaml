@@ -32,18 +32,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           check-latest: true
-          node-version: lts/jod
+          node-version: lts/krypton
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
 
-      - name: Setup Pages
+      - name: Setup pages
         uses: actions/configure-pages@v4
 
-      - name: Upload Artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'

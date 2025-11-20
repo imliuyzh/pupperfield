@@ -4,10 +4,8 @@ Pupperfield is a front end application for people to search, view, filter, and m
 
 ## Getting Started
 
-Please install Node.js v22 with npm v10/v11. It is recommended to follow https://www.youtube.com/watch?v=ohBFbA0O6hs to do this.
-
-1. Enter the folder in the command line and run `npm i` to install the packages.
-2. Execute `npm run dev` and follow the instructions in the shell to start the application.
+1. If you have `nvm` installed (recommended), run `nvm install` followed by `nvm use` inside the repo to install Node.js v24.
+2. Execute `npm i` and `npm run dev`. Afterward, follow the instructions in the shell to start the application.
 
 ### Testing
 
