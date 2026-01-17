@@ -16,16 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out front end repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Check out back end repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: pupperfield-service
           repository: imliuyzh/pupperfield-service 
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           check-latest: true
           node-version: lts/krypton
