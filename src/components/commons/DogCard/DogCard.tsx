@@ -24,11 +24,11 @@ export default function DogCard({
   removeFavoriteDog
 }: Props) {
   return (
-    <Card className="bg-transparent border-none break-inside-avoid gap-0 inline-block py-0 rounded-none shadow-none w-[380px]">
+    <Card className="bg-transparent border-none break-inside-avoid gap-0 inline-block py-0 rounded-none shadow-none w-[300px]">
       <CardContent className="px-0">
         <img
           alt={dog.name}
-          className="w-[380px]"
+          className="w-[300px]"
           loading="lazy"
           src={dog.img}
         />
