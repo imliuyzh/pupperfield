@@ -28,7 +28,7 @@ export default function DogCard({
       <CardContent className="px-0">
         <img
           alt={dog.name}
-          className="w-[300px]"
+          className="w-[350px]"
           loading="lazy"
           src={dog.img}
         />
@@ -63,7 +63,7 @@ export default function DogCard({
             <span className="block">
               {dog.age.toString()} {(dog.age > 1) ? "Years" : "Year"}
             </span>
-            <div className="flex gap-4 mt-6">
+            <div className="flex flex-col gap-2 items-end mt-6">
               <Badge
                 className="bg-transparent border-none p-0 text-white"
                 key={crypto.randomUUID()}
