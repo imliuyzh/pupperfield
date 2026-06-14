@@ -16,6 +16,7 @@ export default tseslint.config(
     ignores: [
       "dist",
       "eslint.config.js",
+      "playwright.config.ts",
       "node_modules",
       "src/app/Provider.tsx",
       "src/components/ui/*",

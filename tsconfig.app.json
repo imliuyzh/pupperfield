@@ -23,7 +23,6 @@
     "noUncheckedSideEffectImports": true,
   
     /* Resolve paths for editors */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
