@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "test": "PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test",
-    "test:init": "docker run --init --ipc=host --network=host --rm mcr.microsoft.com/playwright:v1.54.1 /bin/sh -c 'npx playwright run-server --host 0.0.0.0 --port 3000'",
+    "test:init": "docker run --init --ipc=host --network=host --rm mcr.microsoft.com/playwright:v1.60.0 /bin/sh -c 'npx playwright run-server --host 0.0.0.0 --port 3000'",
     "test:ui": "npm test -- --ui-host=0.0.0.0"
   },
   "dependencies": {
