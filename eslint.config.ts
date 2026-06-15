@@ -3,20 +3,19 @@ import stylistic from "@stylistic/eslint-plugin";
 import importPlugin from "eslint-plugin-import";
 import playwrightPlugin from "eslint-plugin-playwright";
 import reactPlugin from "eslint-plugin-react";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
-import tseslint from "typescript-eslint";
+import { configs as tsEslintConfig } from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   reactPlugin.configs.flat.recommended,
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
+  tsEslintConfig.strictTypeChecked,
+  tsEslintConfig.stylisticTypeChecked,
   {
     ignores: [
       "dist",
-      "eslint.config.js",
-      "playwright.config.ts",
       "node_modules",
       "src/app/Provider.tsx",
       "src/components/ui/*",
