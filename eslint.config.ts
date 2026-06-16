@@ -11,6 +11,7 @@ export default defineConfig(
   eslint.configs.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   reactPlugin.configs.flat.recommended,
+  tsEslintConfig.eslintRecommended,
   tsEslintConfig.strictTypeChecked,
   tsEslintConfig.stylisticTypeChecked,
   {
