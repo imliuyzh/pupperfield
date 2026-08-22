@@ -26,10 +26,10 @@ jobs:
     needs: ci
     steps:
       - name: Check out
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           cache-dependency-path: package-lock.json
           check-latest: true
